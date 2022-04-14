@@ -3,7 +3,7 @@
 {% block content %}
         
         <!-- Hero Start -->
-        <section class="bg-half d-table w-100" style="background: url({% static 'images/company/aboutus.jpg' %});">
+        <section class="bg-half d-table w-100" style="background: url({% static 'images/blog-main.jpg' %});">
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="row justify-content-center">
@@ -109,7 +109,7 @@
                                     <h5 class="widget-title">دسته بندیها </h5>
                                     <ul class="list-unstyled mt-4 mb-0 blog-categories">
                                         {% for cat in categories %}
-                                        <li><a href="{% url 'category' cat_name=cat.name %}">{{cat.name}}</a> <span class="float-end">{{cat.posts_count}}</span></li>
+                                        <li><a href="{% url 'blog_category' cat_name=cat.name %}">{{cat.name}}</a> <span class="float-end">{{cat.posts_count}}</span></li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -131,18 +131,11 @@
     
                                 <!-- TAG CLOUDS -->
                                 <div class="widget mb-4 pb-2">
-                                    <h5 class="widget-title">برچسب های ابری</h5>
+                                    <h5 class="widget-title">برچسب ها</h5>
                                     <div class="tagcloud mt-4">
-                                        <a href="jvascript:void(0)" class="rounded">کسب و کار </a>
-                                        <a href="jvascript:void(0)" class="rounded">مالی </a>
-                                        <a href="jvascript:void(0)" class="rounded">بازاریابی</a>
-                                        <a href="jvascript:void(0)" class="rounded">مدل </a>
-                                        <a href="jvascript:void(0)" class="rounded"> عروس </a>
-                                        <a href="jvascript:void(0)" class="rounded">سبک زندگی </a>
-                                        <a href="jvascript:void(0)" class="rounded">مسافرت </a>
-                                        <a href="jvascript:void(0)" class="rounded">زیبایی </a>
-                                        <a href="jvascript:void(0)" class="rounded">ویدئو </a>
-                                        <a href="jvascript:void(0)" class="rounded">صدا </a>
+                                        {% for tag in tags %}
+                                            <a href="{% url 'blog_tag' tag_name=tag.name %}" class="rounded">{{tag.name}}</a>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <!-- TAG CLOUDS -->
