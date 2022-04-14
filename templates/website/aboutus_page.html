@@ -43,14 +43,10 @@
 
                     <div class="col-md-6 mt-4 pt-2 mt-sm-0 pt-sm-0">
                         <div class="ms-lg-4">
-                            <div class="d-flex mb-4">
-                                <span class="text-primary h1 mb-0"><span class="counter-value display-1 fw-bold" data-target="15">0</span>+</span>
-                                <span class="h6 align-self-end ms-2">سال <br> تجربه </span>
-                            </div>
                             <div class="section-title">
                                 <h4 class="title mb-4">ما کی هستیم ؟</h4>
                                 <p class="text-muted">شروع به کار با <span class="text-primary fw-bold"> لنـدریـک  </span> که می تواند هر آنچه را که شما برای ایجاد آگاهی ، ایجاد ترافیک ، اتصال به آن نیاز دارید فراهم کند. متن ساختگی متنی است که در صنعت نشر یا طراحان وب برای اشغال فضایی استفاده می شود که بعداً با محتوای واقعی پر خواهد شد. این مورد زمانی الزامی است که مثلاً متن نهایی هنوز در دسترس نیست. متون ساختگی از قرن شانزدهم مورد استفاده حروفچینی ها قرار گرفته اند.</p>
-                                <a href="javascript:void(0)" class="btn btn-primary mt-3">تماس با ما</a>
+                                <a href="{% url 'contact' %}" class="btn btn-primary mt-3">تماس با ما</a>
                             </div>
                         </div>
                     </div><!--end col-->
@@ -67,13 +63,13 @@
                         <div class="section-title text-center text-md-start">
                             <h6 class="text-primary">خدمات </h6>
                             <h4 class="title mb-4">چه کاری انجام می دهیم؟</h4>
-                            <p class="text-muted mb-0 para-desc">شروع به کار با <span class="text-primary fw-bold"> لنـدریـک  </span> که می تواند هر آنچه را که شما برای ایجاد آگاهی ، ایجاد ترافیک ، اتصال به آن نیاز دارید فراهم کند.</p>
+                                <p class="text-muted mb-0 para-desc">شروع به کار با <span class="text-primary fw-bold"> پیشه.  </span> این باعث می شود بهترین فرصت شما برای تأثیر مثبت بر جهان باشد. اگر به اندازه کافی خوش شانس هستید که می توانید از حرفه خود برای همیشه استفاده کنید، اما مطمئن نیستید که چگونه، راهنمای عمیق ما می تواند به شما کمک کند. </p>
                         </div>
                     </div><!--end col-->
 
                     <div class="col-md-4 mt-4 mt-sm-0">
                         <div class="text-center text-md-end">
-                            <a href="javascript:void(0)" class="text-primary h6">نمایش بیشتر <i class="uil uil-angle-left-b align-middle"></i></a>
+                            <a href="{% url 'guide' %}" class="text-primary h6">نمایش بیشتر <i class="uil uil-angle-left-b align-middle"></i></a>
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->
@@ -92,7 +88,7 @@
                             <li class="nav-item mt-2">
                                 <a class="nav-link rounded" id="database" data-bs-toggle="pill" href="#data-analise" role="tab" aria-controls="data-analise" aria-selected="false">
                                     <div class="text-center py-1">
-                                        <h6 class="mb-0">وبلاگ</h6>
+                                        <h6 class="mb-0">بلاگ</h6>
                                     </div>
                                 </a><!--end nav link-->
                             </li><!--end nav item-->
@@ -100,15 +96,7 @@
                             <li class="nav-item mt-2">
                                 <a class="nav-link rounded" id="server" data-bs-toggle="pill" href="#security" role="tab" aria-controls="security" aria-selected="false">
                                     <div class="text-center py-1">
-                                        <h6 class="mb-0">پادکست</h6>
-                                    </div>
-                                </a><!--end nav link-->
-                            </li><!--end nav item-->
-
-                            <li class="nav-item mt-2">
-                                <a class="nav-link rounded" id="webdesigning" data-bs-toggle="pill" href="#designing" role="tab" aria-controls="designing" aria-selected="false">
-                                    <div class="text-center py-1">
-                                        <h6 class="mb-0">همکاری</h6>
+                                        <h6 class="mb-0">تماس با ما</h6>
                                     </div>
                                 </a><!--end nav link-->
                             </li><!--end nav item-->
