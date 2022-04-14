@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+        <!-- Hero Start -->
+        <section class="bg-half-260 bg-primary d-table w-100" style="background: url({% static 'images/hosting/new_bg.jpg' %}) center center;" id="home">
+            <div class="bg-overlay"></div>
+            <div class="container">
+                <div class="row mt-5 justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="title-heading text-center">
+                            <h1 class="heading title-dark text-white mb-3">وبسایت آزمایشی ما</h1>
+                            <p class="para-desc para-dark mx-auto text-muted">این باعث می شود بهترین فرصت شما برای تأثیر مثبت بر جهان باشد.
+اگر به اندازه کافی خوش شانس هستید که می توانید از حرفه خود برای همیشه استفاده کنید، اما مطمئن نیستید که چگونه، راهنمای عمیق ما می تواند به شما کمک کند:                             </p>
+                            <div class="mt-4 pt-2">
+                                <a href="javascript:void(0)" class="btn btn-primary">شروع کنید </a>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+        <div class="position-relative">
+            <div class="shape overflow-hidden text-light">
+                <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+                </svg>
+            </div>
+        </div>
+        <!-- Hero End -->
+
+        <!-- Search Start -->
+
+        <!-- Search End -->
+
+        <!-- Start Services -->
+
+        <!-- End Services -->
+
+        <!-- How It Work Start -->
+        <section class="section bg-light">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-6">
+                        <img src="{% static 'images/hosting/1.png' %}" class="img-fluid" alt="">
+                    </div><!--end col-->
+
+                    <div class="col-lg-7 col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                        <div class="section-title ms-lg-5">
+                            <h4 class="title mb-4">از اینجا شروع کن</h4>
+                            <p class="text-muted">اگر تازه کار هستید، از اینجا شروع کنید تا یاد بگیرید چگونه مسیرهای شغلی را از نظر تأثیر، با استفاده از چهار عامل کلیدی مقایسه کنید: مشکل، راه حل، اهرم و تناسب شخصی.
+
+ما از آنها استفاده خواهیم کرد تا نشان دهیم که چرا برخی از مسیرهای شغلی که برای شما باز است احتمالاً می توانند بسیار بیشتر از دیگران برای جهان انجام دهند، اما چرا آنها احتمالاً آنهایی نیستند که شما در حال حاضر به آنها فکر می کنید.</p>
+
+                            <a href="javascript:void(0)" class="btn btn-primary mt-3">شروع کنید <i class="uil uil-angle-left-b"></i></a>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+
+            <div class="container mt-100 mt-60">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6 order-2 order-md-1 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                        <div class="section-title">
+                            <h4 class="title mb-4">راهنمایی گردش در سایت</h4>
+                            <p class="text-muted">این راهنما مهم‌ترین ایده‌هایی را که برای داشتن یک شغل پرتأثیر باید بدانید را پوشش می‌دهد، مانند چگونگی تعریف تأثیر اجتماعی در وهله اول، نحوه مقایسه مشکلات جهانی، نحوه انجام کارهایی که در آن مهارت دارید و موارد دیگر. .</p>
+                            <ul class="list-unstyled text-muted">
+                                <li class="mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>حدود 15 موضوع کلیدی وجود دارد</li>
+                                <li class="mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>می توانید به یک خلاصه پادکست گوش دهید</li>
+                                <li class="mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span> شروع به برنامه‌ریزی شغلی خود کنید.</li>
+                            </ul>
+                            <a href="{% url 'guide' %}" class="btn btn-primary mt-3">شروع کنید <i class="uil uil-angle-left-b"></i></a>
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-lg-6 col-md-6 order-1 order-md-2">
+                        <img src="{% static 'images/hosting/deal-hend.svg' %}" class="img-fluid" alt="">
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+
+            <div class="container mt-100 mt-60">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-6">
+                        <img src="{% static 'images/hosting/2.png' %}" class="img-fluid" alt="">
+                    </div><!--end col-->
+
+                    <div class="col-lg-7 col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                        <div class="section-title ms-lg-5">
+                            <h4 class="title mb-4">درباره ما</h4>
+                            <p class="text-muted">شما می توانید تمام الگوهای لنـدریــک را در یک قالب واحد ترکیب کنید ، می توانید یک نظر را از موضوع برنامه بگیرید و از آن در وب سایت استفاده کنید.</p>
+                            <ul class="list-unstyled text-muted">
+                                <li class="mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>راه حل های بازاریابی دیجیتال برای فردا</li>
+                                <li class="mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>آژانس بازاریابی با استعداد و با تجربه ما</li>
+                                <li class="mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>پوست خود را متناسب با نام تجاری خود ایجاد کنید</li>
+                            </ul>
+                            <a href="{% url 'about' %}" class="btn btn-primary mt-3">شروع کنید <i class="uil uil-angle-left-b"></i></a>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+
+        <!-- How It Work End -->
+
+        <!-- Price Start -->
+
+        <!-- Price End -->
+
+        <!-- Testi Start -->
+
+        <!-- Testi End -->
+
+        <!-- Start Blog -->
+        <section class="section bg-light">
+            <!-- Start Blog -->
+            <div class="container mt-100 mt-60">
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
+                        <div class="section-title mb-4 pb-2">
+                            <h4 class="title mb-4">آخرین پست ها</h4>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                        <div class="card blog rounded border-0 shadow">
+                            <div class="position-relative">
+                                <img src="{% static 'images/blog/01.jpg' %}" class="card-img-top rounded-top" alt="...">
+                            <div class="overlay rounded-top bg-dark"></div>
+                            </div>
+                            <div class="card-body content">
+                                <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه های خود را به روش خود طراحی کنید</a></h5>
+                                <div class="post-meta d-flex justify-content-between mt-3">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
+                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
+                                    </ul>
+                                    <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                                </div>
+                            </div>
+                            <div class="author">
+                                <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
+                                <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                        <div class="card blog rounded border-0 shadow">
+                            <div class="position-relative">
+                                <img src="{% static 'images/blog/02.jpg' %}" class="card-img-top rounded-top" alt="...">
+                            <div class="overlay rounded-top bg-dark"></div>
+                            </div>
+                            <div class="card-body content">
+                                <h5><a href="javascript:void(0)" class="card-title title text-dark">برنامه ها چگونه دنیای اطلاعات را تغییر می دهند</a></h5>
+                                <div class="post-meta d-flex justify-content-between mt-3">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
+                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
+                                    </ul>
+                                    <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                                </div>
+                            </div>
+                            <div class="author">
+                                <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
+                                <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                        <div class="card blog rounded border-0 shadow">
+                            <div class="position-relative">
+                                <img src="{% static 'images/blog/03.jpg' %}" class="card-img-top rounded-top" alt="...">
+                            <div class="overlay rounded-top bg-dark"></div>
+                            </div>
+                            <div class="card-body content">
+                                <h5><a href="javascript:void(0)" class="card-title title text-dark">هوشمندترین برنامه ها برای تجارت و کار </a></h5>
+                                <div class="post-meta d-flex justify-content-between mt-3">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
+                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
+                                    </ul>
+                                    <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                                </div>
+                            </div>
+                            <div class="author">
+                                <small class="text-light user d-block"><i class="uil uil-user"></i> کالوین لورس</small>
+                                <small class="text-light date"><i class="uil uil-calendar-alt"></i> اردیبهشت 1400</small>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+            <!-- End Blog -->
+        </section><!--end section-->
+        <!-- End Blog -->
+
+{% endblock %}
