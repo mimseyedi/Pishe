@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load blog_tags %}
 {% block content %}
         
         <!-- Hero Start -->
@@ -51,19 +52,16 @@
                                             <div class="overlay bg-dark"></div>
                                             <div class="author">
                                                 <small class="text-light user d-block"><i class="uil uil-user"></i> پیشه</small>
-                                                <small class="text-light date"><i class="uil uil-calendar-alt"></i>{{paper.published_date}} </small>
+                                                <small class="text-light date"><i class="uil uil-calendar-alt"></i>{{paper.published_date|shamsidate}} </small>
                                             </div>
                                         </div><!--end col-->
         
                                         <div class="col-md-6">
                                             <div class="card-body content">
-                                                <h5><a href="javascript:void(0)" class="card-title title text-dark">{{paper.title}}</a></h5>
+                                                <h5><a href="{% url 'guide_single' paper_id=paper.id %}" class="card-title title text-dark">{{paper.title}}</a></h5>
                                                 <p class="text-muted mb-0">{{paper.content|striptags|truncatechars:100}}</p>
                                                 <div class="post-meta d-flex justify-content-between mt-3">
-                                                    <ul class="list-unstyled mb-0">
-                                                        <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
-                                                    </ul>
+
                                                     <a href="page-blog-detail.html" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
                                                 </div>
                                             </div>
@@ -127,8 +125,8 @@
                                     <div class="mt-4">
                                         {% for paper in last_papers %}
                                         <div class="clearfix post-recent">
-                                            <div class="post-recent-thumb float-start"> <a href="jvascript:void(0)"> <img alt="img" src="{{paper.image.url}}" class="img-fluid rounded"></a></div>
-                                            <div class="post-recent-content float-start"><a href="jvascript:void(0)">{{paper.title}}</a><span class="text-muted mt-2">{{paper.published_date}}</span></div>
+                                            <div class="post-recent-thumb float-start"> <a href="{% url 'guide_single' paper_id=paper.id %}"> <img alt="img" src="{{paper.image.url}}" class="img-fluid rounded"></a></div>
+                                            <div class="post-recent-content float-start"><a href="{% url 'guide_single' paper_id=paper.id %}">{{paper.title}}</a><span class="text-muted mt-2">{{paper.published_date|shamsidate}}</span></div>
                                         </div>
                                         {% endfor %}
                                     </div>
