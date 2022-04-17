@@ -1,5 +1,5 @@
 from django import forms
-from website.models import Contact
+from website.models import Contact, NewsLetters
 
 
 class ContactForm(forms.ModelForm):
@@ -11,3 +11,11 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         exclude = ['created_date', 'updated_date']
+
+
+class NewsLettersForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = NewsLetters
+        fields = '__all__'

@@ -14,3 +14,10 @@ class Contact(models.Model):
 
     def __str__(self):
         return f'{self.name} - {self.subject}'
+
+
+class NewsLetters(models.Model):
+    email = models.EmailField()
+
+    def __str__(self):
+        return f'{self.id} - {self.email}'

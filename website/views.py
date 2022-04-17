@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import messages
-from website.forms import ContactForm
+from website.forms import ContactForm, NewsLettersForm
 from blog.models import Post
 
 
@@ -13,6 +13,16 @@ def home_view(request):
 
 def about_view(request):
     return render(request, 'website/aboutus_page.html')
+
+
+def newsletters_view(request):
+    if request.method == "POST":
+        form = NewsLettersForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    else:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def contact_view(request):
