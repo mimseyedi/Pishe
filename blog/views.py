@@ -12,6 +12,10 @@ def blog_home_view(request, **kwargs):
     categories = BlogCategory.objects.all().annotate(posts_count=Count('post'))
     tags = BlogTag.objects.all()
 
+    if request.method == "GET":
+        if s := request.GET.get('s'):
+            posts = posts.filter(content__contains=s)
+
     if kwargs.get("cat_name") != None:
         posts = posts.filter(category__name=kwargs["cat_name"])
 
@@ -61,32 +65,3 @@ def blog_single_view(request, post_id, **kwargs):
                          "last_posts": last_posts, "tags": tags, 'comments': comments}
 
     return render(request, 'blog/blog_single_page.html', context)
-
-
-def blog_search_view(request, **kwargs):
-    posts = Post.objects.filter(status=1)
-    last_posts = posts[:3]
-    categories = BlogCategory.objects.all().annotate(posts_count=Count('post'))
-    tags = BlogTag.objects.all()
-
-    if request.method == "GET":
-        if s := request.GET.get('s'):
-            posts = posts.filter(content__contains=s)
-
-    if kwargs.get("cat_name") != None:
-        posts = posts.filter(category__name=kwargs["cat_name"])
-
-    if kwargs.get("tag_name") != None:
-        posts = posts.filter(tag__name=kwargs["tag_name"])
-
-    posts = Paginator(posts, 8)
-    try:
-        page_number = request.GET.get('page')
-        posts = posts.get_page(page_number)
-    except PageNotAnInteger:
-        posts = posts.get_page(1)
-    except EmptyPage:
-        posts = posts.get_page(1)
-
-    context = {"posts": posts, "categories": categories, "last_posts": last_posts, "tags": tags}
-    return render(request, 'blog/blog_home_page.html', context)
