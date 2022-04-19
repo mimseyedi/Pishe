@@ -22,7 +22,7 @@ def blog_home_view(request, **kwargs):
     if kwargs.get("tag_name") != None:
         posts = posts.filter(tag__name=kwargs["tag_name"])
 
-    posts = Paginator(posts, 8)
+    posts = Paginator(posts, 6)
     try:
         page_number = request.GET.get('page')
         posts = posts.get_page(page_number)
