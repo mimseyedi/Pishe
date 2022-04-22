@@ -1,6 +1,7 @@
 from django import template
 from blog.MiladiToShamsi import shamsiDate
 from datetime import datetime
+from django.contrib.humanize.templatetags.humanize import intcomma
 
 register = template.Library()
 
@@ -33,3 +34,9 @@ def shamsidate(d):
     str_shamsi = f'{today} {shamsi[2]} {month_dict[shamsi[1]]} {shamsi[0]}'
 
     return str_shamsi
+
+
+@register.filter()
+def currency(price):
+    int_price = int(price)
+    return '{:,}'.format(int_price)

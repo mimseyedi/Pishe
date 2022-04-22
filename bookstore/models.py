@@ -19,6 +19,7 @@ class Book(models.Model):
     translator = models.CharField(max_length=300, verbose_name="مترجم")
     publication = models.CharField(max_length=300, verbose_name="نشر")
     price = models.FloatField(verbose_name="قیمت (به تومان)")
+    count = models.IntegerField(default=0, verbose_name="موجودی")
     description = models.TextField(verbose_name="توضیحات")
     category = models.ManyToManyField(BookStoreCategory, verbose_name="دسته بندی")
     shabak = models.CharField(max_length=300, verbose_name="شابک")
