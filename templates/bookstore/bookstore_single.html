@@ -218,50 +218,97 @@
                                             </div>
                                         {% endif %}
 
-                                        <form class="ms-lg-4" action="{% url 'bookstore_single' book_id=book.id %}" method="post">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="book" value={{book.id}}>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h5>اضافه کردن نظر:</h5>
-                                                </div>
-                                                <div class="col-md-12 mt-3">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">نظر شما:</label>
-                                                        <div class="form-icon position-relative">
-                                                            <i data-feather="message-circle" class="fea icon-sm icons"></i>
-                                                            <textarea id="message" placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
+                                        {% if request.user.is_authenticated %}
+                                            <form class="ms-lg-4" action="{% url 'bookstore_single' book_id=book.id %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="book" value={{book.id}}>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h5>اضافه کردن نظر:</h5>
+                                                    </div>
+                                                    <div class="col-md-12 mt-3">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">نظر شما:</label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="message-circle" class="fea icon-sm icons"></i>
+                                                                <textarea id="message" placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div><!--end col-->
-            
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">نام  <span class="text-danger">*</span></label>
-                                                        <div class="form-icon position-relative">
-                                                            <i data-feather="user" class="fea icon-sm icons"></i>
-                                                            <input id="name" name="name" type="text" placeholder="نام" class="form-control ps-5" required="">
+                                                    </div><!--end col-->
+
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">نام  <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="user" class="fea icon-sm icons"></i>
+                                                                <input id="name" name="name" type="text" placeholder="نام" class="form-control ps-5" required="" value="{{request.user.get_full_name}}">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div><!--end col-->
-            
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
-                                                        <div class="form-icon position-relative">
-                                                            <i data-feather="mail" class="fea icon-sm icons"></i>
-                                                            <input id="email" type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="">
+                                                    </div><!--end col-->
+
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="mail" class="fea icon-sm icons"></i>
+                                                                <input id="email" type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="" value="{{request.user.email}}">
+                                                            </div>
                                                         </div>
+                                                    </div><!--end col-->
+
+                                                    <div class="col-md-12">
+                                                        <div class="send d-grid">
+                                                            <button type="submit" class="btn btn-primary">ارسال </button>
+                                                        </div>
+                                                    </div><!--end col-->
+                                                </div><!--end row-->
+                                            </form><!--end form-->
+                                        {% else %}
+                                            <form class="ms-lg-4" action="{% url 'bookstore_single' book_id=book.id %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="book" value={{book.id}}>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h5>اضافه کردن نظر:</h5>
                                                     </div>
-                                                </div><!--end col-->
-            
-                                                <div class="col-md-12">
-                                                    <div class="send d-grid">
-                                                        <button type="submit" class="btn btn-primary">ارسال </button>
-                                                    </div>
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                        </form><!--end form-->
+                                                    <div class="col-md-12 mt-3">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">نظر شما:</label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="message-circle" class="fea icon-sm icons"></i>
+                                                                <textarea id="message" placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">نام  <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="user" class="fea icon-sm icons"></i>
+                                                                <input id="name" name="name" type="text" placeholder="نام" class="form-control ps-5" required="">
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="mail" class="fea icon-sm icons"></i>
+                                                                <input id="email" type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="">
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+
+                                                    <div class="col-md-12">
+                                                        <div class="send d-grid">
+                                                            <button type="submit" class="btn btn-primary">ارسال </button>
+                                                        </div>
+                                                    </div><!--end col-->
+                                                </div><!--end row-->
+                                            </form><!--end form-->
+                                        {% endif %}
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div>
@@ -404,50 +451,97 @@
                                             </div>
                                         {% endif %}
 
-                                        <form class="ms-lg-4" action="{% url 'bookstore_single' book_id=book.id %}" method="post">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="book" value={{book.id}}>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h5>اضافه کردن نظر:</h5>
-                                                </div>
-                                                <div class="col-md-12 mt-3">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">نظر شما:</label>
-                                                        <div class="form-icon position-relative">
-                                                            <i data-feather="message-circle" class="fea icon-sm icons"></i>
-                                                            <textarea id="message" placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
+                                        {% if request.user.is_authenticated %}
+                                            <form class="ms-lg-4" action="{% url 'bookstore_single' book_id=book.id %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="book" value={{book.id}}>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h5>اضافه کردن نظر:</h5>
+                                                    </div>
+                                                    <div class="col-md-12 mt-3">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">نظر شما:</label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="message-circle" class="fea icon-sm icons"></i>
+                                                                <textarea id="message" placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div><!--end col-->
+                                                    </div><!--end col-->
 
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">نام  <span class="text-danger">*</span></label>
-                                                        <div class="form-icon position-relative">
-                                                            <i data-feather="user" class="fea icon-sm icons"></i>
-                                                            <input id="name" name="name" type="text" placeholder="نام" class="form-control ps-5" required="">
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">نام  <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="user" class="fea icon-sm icons"></i>
+                                                                <input id="name" name="name" type="text" placeholder="نام" class="form-control ps-5" required="" value="{{request.user.get_full_name}}">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div><!--end col-->
+                                                    </div><!--end col-->
 
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
-                                                        <div class="form-icon position-relative">
-                                                            <i data-feather="mail" class="fea icon-sm icons"></i>
-                                                            <input id="email" type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="">
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="mail" class="fea icon-sm icons"></i>
+                                                                <input id="email" type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="" value="{{request.user.email}}">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div><!--end col-->
+                                                    </div><!--end col-->
 
-                                                <div class="col-md-12">
-                                                    <div class="send d-grid">
-                                                        <button type="submit" class="btn btn-primary">ارسال </button>
+                                                    <div class="col-md-12">
+                                                        <div class="send d-grid">
+                                                            <button type="submit" class="btn btn-primary">ارسال </button>
+                                                        </div>
+                                                    </div><!--end col-->
+                                                </div><!--end row-->
+                                            </form><!--end form-->
+                                        {% else %}
+                                            <form class="ms-lg-4" action="{% url 'bookstore_single' book_id=book.id %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="book" value={{book.id}}>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h5>اضافه کردن نظر:</h5>
                                                     </div>
-                                                </div><!--end col-->
-                                            </div><!--end row-->
-                                        </form><!--end form-->
+                                                    <div class="col-md-12 mt-3">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">نظر شما:</label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="message-circle" class="fea icon-sm icons"></i>
+                                                                <textarea id="message" placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">نام  <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="user" class="fea icon-sm icons"></i>
+                                                                <input id="name" name="name" type="text" placeholder="نام" class="form-control ps-5" required="">
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="mail" class="fea icon-sm icons"></i>
+                                                                <input id="email" type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="">
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+
+                                                    <div class="col-md-12">
+                                                        <div class="send d-grid">
+                                                            <button type="submit" class="btn btn-primary">ارسال </button>
+                                                        </div>
+                                                    </div><!--end col-->
+                                                </div><!--end row-->
+                                            </form><!--end form-->
+                                        {% endif %}
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </div>
