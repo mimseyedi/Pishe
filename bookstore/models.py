@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class BookStoreCategory(models.Model):
@@ -52,3 +53,33 @@ class BookComment(models.Model):
 
     def __str__(self):
         return f'{self.id} - {self.name}'
+
+
+class Product(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="شناسه کتاب")
+    count = models.PositiveSmallIntegerField()
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ساخت")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروز رسانی")
+
+    class Meta:
+        ordering = ['-created_date']
+        verbose_name = 'محصول'
+        verbose_name_plural = 'محصولات'
+
+    def __str__(self):
+        return self.book.title
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="شناسه کاربر")
+    is_paid = models.BooleanField(default=False)
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ساخت")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروز رسانی")
+
+    class Meta:
+        ordering = ['-created_date']
+        verbose_name = 'سبد خرید'
+        verbose_name_plural = 'سبد خرید'
+
+    def __str__(self):
+        return f'{self.user.username} - {self.user.get_full_name}'

@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    
+<head>
+        <meta charset="utf-8" />   <title>وبسایت پیشه</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Premium Bootstrap 5 Landing Page Template" />
+        <meta name="keywords" content="Saas, Software, multi-uses, HTML, Clean, Modern" />
+        <meta name="author" content="MohammadSeyedi" />
+        <meta name="email" content="mim.seyedi@gmail.com" />
+        <meta name="website" content="" />
+        <meta name="Version" content="v3.2.1" />
+        <!-- favicon -->
+        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+        <!-- Bootstrap -->
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <!-- Icons -->
+        <link href="{% static 'css/materialdesignicons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{% static 'unicons.iconscout.com/release/v3.0.6/css/line.css' %}">
+        <!-- Main Css -->
+        <link href="{% static 'css/style.min.css' %}" rel="stylesheet" type="text/css" id="theme-opt" />
+        <link href="{% static 'css/colors/purple.css' %}" rel="stylesheet" id="color-opt">
+
+    </head>
+
+    <body>
+        <!-- Loader -->
+        <!-- <div id="preloader">
+            <div id="status">
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+            </div>
+        </div> -->
+        <!-- Loader -->
+        
+        <div class="back-to-home rounded d-none d-sm-block">
+            <a href="{% url 'home' %}" class="btn btn-icon btn-primary"><i data-feather="home" class="icons"></i></a>
+        </div>
+
+        <!-- شوع آن -->
+        <section class="cover-user bg-white">
+            <div class="container-fluid px-0">
+                <div class="row g-0 position-relative">
+                    <div class="col-lg-4 cover-my-30 order-2">
+                        <div class="cover-user-img d-flex align-items-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card login-page border-0" style="z-index: 1">
+                                        <div class="card-body p-0">
+                                            <h4 class="card-title text-center">وارد شدن </h4>
+
+                                          {% if form.errors %}
+                                            <div class="alert alert-error">
+                                              <h4>Please fix the following errors</h4>
+                                              <ul>
+                                                {% for field in form %}
+                                                  {% if field.errors %}
+                                                    {% for error in field.errors %}
+                                                      <li><a href="#id_{{ field.name }}" class="error">{{ error|escape }}</a></li>
+                                                    {% endfor %}
+                                                  {% endif %}
+                                                {% endfor %}
+                                              </ul>
+                                              {% if form.non_field_errors %}
+                                                {{ form.non_field_errors }}
+                                              {% endif %}
+                                            </div>
+                                        {% endif %}
+
+                                            <form class="login-form mt-4" action="{% url 'login' %}" method="post">
+                                                {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">نام کاربری <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="user" class="fea icon-sm icons"></i>
+                                                                <input type="text" class="form-control ps-5" placeholder="نام کاربری " name="username" required="">
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+        
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">رمز عبور  <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="key" class="fea icon-sm icons"></i>
+                                                                <input type="password" class="form-control ps-5" placeholder="رمز عبور " required="" name="password">
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+        
+                                                    <div class="col-lg-12">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="mb-3">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                                    <label class="form-check-label" for="flexCheckDefault">مرا به خاطر بسپار </label>
+                                                                </div>
+                                                            </div>
+                                                            <p class="forgot-pass mb-0"><a href="{% url 'reset_password' %}" class="text-dark fw-bold">فراموشی رمز عبور؟ </a></p>
+                                                        </div>
+                                                    </div><!--end col-->
+
+                                                    <div class="col-lg-12 mb-0">
+                                                        <div class="d-grid">
+                                                            <button class="btn btn-primary" type="submit">ورود </button>
+                                                        </div>
+                                                    </div><!--end col-->
+
+                                                    <div class="col-12 text-center">
+                                                        <p class="mb-0 mt-3"><small class="text-dark me-2">حسابی ندارید؟ </small> <a href="{% url 'signup' %}" class="text-dark fw-bold">ثبت نام کنید </a></p>
+                                                    </div><!--end col-->
+                                                </div><!--end row-->
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div> <!-- end about detail -->
+                    </div> <!-- end col -->
+
+
+                    <div class="col-lg-8 offset-lg-4 padding-less img order-1" style="background-image:url({% static 'images/login.jpg' %})" data-jarallax='{"speed": 0.5}'></div><!-- end col -->
+                </div><!--end row-->
+            </div><!--end container fluid-->
+        </section><!--end section-->
+        <!-- پایان آن -->
+
+
+        <!-- javascript -->
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <!-- Icons -->
+        <script src="{% static 'js/feather.min.js' %}"></script>
+        <!-- Switcher -->
+        <script src="{% static 'js/switcher.js' %}"></script>
+        <!-- Main Js -->
+        <script src="{% static 'js/plugins.init.js' %}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
+        <script src="{% static 'js/app.js' %}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+    </body>
+
+</html>

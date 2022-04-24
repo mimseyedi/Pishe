@@ -47,3 +47,12 @@ def bookstore_single_view(request, book_id, **kwargs):
 
     context = {"book": book, "last_books": last_books, "comments": comments}
     return render(request, "bookstore/bookstore_single.html", context)
+
+
+def checkout_view(request):
+    return render(request, "bookstore/bookstore_checkouts.html")
+
+
+def cart_view(request):
+
+    return render(request, "bookstore/bookstore_cart.html")

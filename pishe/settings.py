@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'guide.apps.GuideConfig',
     'blog.apps.BlogConfig',
     'bookstore.apps.BookstoreConfig',
+    'account.apps.AccountConfig',
     'django_summernote',
 ]
 
