@@ -23,7 +23,7 @@
                                             </div><!--end col-->
                                             <div class="col-md-5 text-md-end text-center">
                                                 <ul class="list-unstyled social-icon social mb-0 mt-4">
-                                                    <li class="list-inline-item"><a href="account-setting.html" class="rounded" data-bs-toggle="tooltip" data-bs-placement="bottom" title="تنظیمات"><i class="uil uil-cog align-middle"></i></a></li>
+                                                    <li class="list-inline-item"><a href="{% url 'account_sett' %}" class="rounded" data-bs-toggle="tooltip" data-bs-placement="bottom" title="تنظیمات"><i class="uil uil-cog align-middle"></i></a></li>
                                                     <li class="list-inline-item"><a href="{% url 'logout' %}" class="rounded" data-bs-toggle="tooltip" data-bs-placement="bottom" title="خروج"><i class="uil uil-sign-out-alt align-middle"></i></a></li>
                                                 </ul><!--end icon-->
                                             </div><!--end col-->
@@ -44,7 +44,6 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
                         <div class="sidebar sticky-bar p-4 rounded shadow">
-
                             <div class="widget mt-4 pt-2">
                                 <h5 class="widget-title">داشبورد  :</h5>
                             </div>
@@ -52,14 +51,14 @@
                             <div class="widget mt-4">
                                 <ul class="list-unstyled sidebar-nav mb-0" id="navmenu-nav">
                                     <li class="navbar-item account-menu px-0">
-                                        <a href="account-profile.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                        <a href="{% url 'dashboard' %}" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-user"></i></span>
                                             <h6 class="mb-0 ms-2">پروفایل </h6>
                                         </a>
                                     </li>
                                     
                                     <li class="navbar-item account-menu px-0 mt-2">
-                                        <a href="account-members.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                        <a href="{% url 'account_fav' %}" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-favorite"></i></span>
                                             <h6 class="mb-0 ms-2">نشان شده ها </h6>
                                         </a>
@@ -73,7 +72,7 @@
                                     </li>
                                     
                                     <li class="navbar-item account-menu px-0 mt-2">
-                                        <a href="account-setting.html" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                        <a href="{% url 'account_sett' %}" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-setting"></i></span>
                                             <h6 class="mb-0 ms-2">تنظیمات </h6>
                                         </a>
@@ -107,87 +106,105 @@
                         <div class="border-bottom pb-4">
                             <div class="row">
                                 <div class="col-md-6 mt-4">
-                                    <h5>جزئیات شخصی :</h5>
+                                    <h5>اطلاعات شخصی :</h5>
                                     <div class="mt-4">
+                                        <div class="d-flex align-items-center">
+                                            <i data-feather="user" class="fea icon-ex-md text-muted me-3"></i>
+                                            <div class="flex-1">
+                                                <h6 class="text-primary mb-0">نام :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">{{current_user.firstname}}</a>
+                                            </div>
+                                        </div><br>
+                                        <div class="d-flex align-items-center">
+                                            <i data-feather="user" class="fea icon-ex-md text-muted me-3"></i>
+                                            <div class="flex-1">
+                                                <h6 class="text-primary mb-0">نام خانوادگی :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">{{current_user.lastname}}</a>
+                                            </div>
+                                        </div><br>
                                         <div class="d-flex align-items-center">
                                             <i data-feather="mail" class="fea icon-ex-md text-muted me-3"></i>
                                             <div class="flex-1">
                                                 <h6 class="text-primary mb-0">ایمیل :</h6>
-                                                <a href="javascript:void(0)" class="text-muted">kristajoseph0203@mail.com</a>
+                                                <a href="javascript:void(0)" class="text-muted">{{request.user.email}}</a>
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center mt-3">
-                                            <i data-feather="bookmark" class="fea icon-ex-md text-muted me-3"></i>
+                                            <i data-feather="code" class="fea icon-ex-md text-muted me-3"></i>
                                             <div class="flex-1">
-                                                <h6 class="text-primary mb-0">مهارت :</h6>
-                                                <a href="javascript:void(0)" class="text-muted">html</a>, <a href="javascript:void(0)" class="text-muted">css</a>, <a href="javascript:void(0)" class="text-muted">js</a>, <a href="javascript:void(0)" class="text-muted">mysql</a>
+                                                <h6 class="text-primary mb-0">کد ملی :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">{{current_user.meli_code}}</a>
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center mt-3">
-                                            <i data-feather="italic" class="fea icon-ex-md text-muted me-3"></i>
+                                            <i data-feather="smartphone" class="fea icon-ex-md text-muted me-3"></i>
                                             <div class="flex-1">
-                                                <h6 class="text-primary mb-0">زبان :</h6>
-                                                <a href="javascript:void(0)" class="text-muted">انگلیسی</a>, <a href="javascript:void(0)" class="text-muted">ژاپنی</a>, <a href="javascript:void(0)" class="text-muted">چینی</a>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center mt-3">
-                                            <i data-feather="globe" class="fea icon-ex-md text-muted me-3"></i>
-                                            <div class="flex-1">
-                                                <h6 class="text-primary mb-0">وب سایت:</h6>
-                                                <a href="javascript:void(0)" class="text-muted">www.kristajoseph.com</a>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center mt-3">
-                                            <i data-feather="gift" class="fea icon-ex-md text-muted me-3"></i>
-                                            <div class="flex-1">
-                                                <h6 class="text-primary mb-0">تاریخ تولد :</h6>
-                                                <p class="text-muted mb-0">تیر 1377</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center mt-3">
-                                            <i data-feather="map-pin" class="fea icon-ex-md text-muted me-3"></i>
-                                            <div class="flex-1">
-                                                <h6 class="text-primary mb-0">موقعیت :</h6>
-                                                <a href="javascript:void(0)" class="text-muted">چین</a>
+                                                <h6 class="text-primary mb-0">موبایل :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">{{current_user.mobile_phone}}</a>
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center mt-3">
                                             <i data-feather="phone" class="fea icon-ex-md text-muted me-3"></i>
                                             <div class="flex-1">
-                                                <h6 class="text-primary mb-0">شماره تلفن :</h6>
-                                                <a href="javascript:void(0)" class="text-muted">(+12) 1254-56-4896</a>
+                                                <h6 class="text-primary mb-0">تلفن ثابت :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">{{current_user.home_phone}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mt-3">
+                                            <i data-feather="map-pin" class="fea icon-ex-md text-muted me-3"></i>
+                                            <div class="flex-1">
+                                                <h6 class="text-primary mb-0">آدرس :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">{{current_user.address}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mt-3">
+                                            <i data-feather="flag" class="fea icon-ex-md text-muted me-3"></i>
+                                            <div class="flex-1">
+                                                <h6 class="text-primary mb-0">کد پستی :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">{{current_user.post_code}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mt-3">
+                                            <i data-feather="map" class="fea icon-ex-md text-muted me-3"></i>
+                                            <div class="flex-1">
+                                                <h6 class="text-primary mb-0">استان :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">{{current_user.state}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mt-3">
+                                            <i data-feather="map-pin" class="fea icon-ex-md text-muted me-3"></i>
+                                            <div class="flex-1">
+                                                <h6 class="text-primary mb-0">شهر :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">{{current_user.city}}</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div><!--end col-->
 
                                 <div class="col-md-6 mt-4 pt-2 pt-sm-0">
-                                    <h5>تجربه :</h5>
+                                    <h5>دسترسی سریع :</h5>
 
                                     <div class="d-flex key-feature align-items-center p-3 rounded shadow mt-4">
                                         <img src="images/job/Circleci.svg" class="avatar avatar-ex-sm" alt="">
                                         <div class="flex-1 content ms-3">
-                                            <h4 class="title mb-0">توسعه وب سینور</h4>
-                                            <p class="text-muted mb-0">3 سال تجربه</p>
-                                            <p class="text-muted mb-0"><a href="javascript:void(0)" class="text-primary">کاریکل </a> @لندن </p>    
+                                            <h4 class="title mb-0"><a class="text-primary mb-0" href="{% url 'account_fav' %}">نمایش نشان شده ها</a></h4>
+                                            <p class="text-muted mb-0">در این قسمت کتاب هایی را که علاقه مند بودید و نشان گذاری کرده اید را می توانید ببینید.</p>
                                         </div>
                                     </div>
 
                                     <div class="d-flex key-feature align-items-center p-3 rounded shadow mt-4">
                                         <img src="images/job/Codepen.svg" class="avatar avatar-ex-sm" alt="">
                                         <div class="flex-1 content ms-3">
-                                            <h4 class="title mb-0">طراحی وب</h4>
-                                            <p class="text-muted mb-0">2 سال تجربه</p>
-                                            <p class="text-muted mb-0"><a href="javascript:void(0)" class="text-primary">راست چین</a> آمریکا </p>    
+                                            <h4 class="title mb-0"><a class="text-primary mb-0" href="#">سفارش ها</a></h4>
+                                            <p class="text-muted mb-0">در این قسمت می توانید سفارشات خود را بررسی کنید و لیست خرید خود را مشاهده کنید.</p>
                                         </div>
                                     </div>
 
                                     <div class="d-flex key-feature align-items-center p-3 rounded shadow mt-4">
                                         <img src="images/job/Gitlab.svg" class="avatar avatar-ex-sm" alt="">
                                         <div class="flex-1 content ms-3">
-                                            <h4 class="title mb-0">UI طراح </h4>
-                                            <p class="text-muted mb-0">2 سال تجربه</p>
-                                            <p class="text-muted mb-0"><a href="javascript:void(0)" class="text-primary">گیتلب </a> @آمریکا </p>    
+                                            <h4 class="title mb-0"><a class="text-primary mb-0" href="{% url 'account_sett' %}">تنظیمات</a></h4>
+                                            <p class="text-muted mb-0">در این قسمت می توانید اطلاعات خود را تغییر دهید و تنظیمات مربوط به پروفایل خود را مشاهده کنید.</p>
                                         </div>
                                     </div>
                                 </div><!--end col-->

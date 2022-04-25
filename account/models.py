@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 class UserInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="شناسه کاربر")
+    firstname = models.CharField(max_length=100, verbose_name="نام", null=True)
+    lastname = models.CharField(max_length=100, verbose_name="نام خانوادگی", null=True)
     meli_code = models.CharField(max_length=100, verbose_name="کد ملی")
     mobile_phone = models.CharField(max_length=100, verbose_name="شماره موبایل")
     home_phone = models.CharField(max_length=100, verbose_name="شماره ثابت")
