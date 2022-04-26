@@ -7,7 +7,6 @@ from django.contrib import messages
 from account.models import UserInfo
 from account.forms import UserInfoForm
 from django.contrib.auth.models import User
-from hashlib import sha256
 
 
 def login_view(request):
@@ -19,7 +18,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/')
+                return HttpResponseRedirect(reverse("account_info"))
             else:
                 messages.add_message(request, messages.ERROR, 'اطلاعات وارد شده صحیح نمی باشد!')
 
@@ -57,6 +56,7 @@ def dashboard_view(request):
 def account_setting_view(request):
     if request.user.is_authenticated:
         current_user = get_object_or_404(UserInfo, user=request.user.pk)
+        msg = ''
 
         if request.method == "POST":
             if 'update_submit' in request.POST:
@@ -68,28 +68,34 @@ def account_setting_view(request):
                     messages.add_message(request, messages.ERROR, 'اطلاعات وارد شده صحیح نیست!')
 
             elif 'change_pass_submit' in request.POST:
-                old_pass = request.POST.get('last_pass')
-                new_pass = request.POST.get('new_pass')
-                new_pass_conf = request.POST.get('new_pass_conf')
-                if new_pass == new_pass_conf:
-                    user = User.objects.get(username__exact=request.user.username)
-                    user.set_password(new_pass)
-                    user.save()
-                    logout(request)
+                form = PasswordChangeForm(user=request.user, data=request.POST)
+                if form.is_valid():
+                    form.save()
+                    update_session_auth_hash(request, form.user)
+                    msg = ''
                     return HttpResponseRedirect(reverse("pass_changed"))
                 else:
-                    messages.add_message(request, messages.ERROR, 'تاییدیه رمز با رمز جدید مطابقت ندارد!')
-                    return HttpResponseRedirect(reverse("account_sett"))
+                    msg = "اطلاعات وارد شده برای تغییر رمز صحیح نمی باشد. لطفا دوباره تلاش کنید!"
 
+            elif 'delete_submit' in request.POST:
+                user = User.objects.get(username=request.user.username)
+                user.delete()
+                return HttpResponseRedirect(reverse("account_del"))
 
-        context = {"current_user": current_user}
+        context = {"current_user": current_user, "msg": msg}
         return render(request, "account/account-setting.html", context)
     else:
         return HttpResponseRedirect(reverse("login"))
 
 
 def pass_changed_view(request):
+    logout(request)
     return render(request, "account/pass_change.html")
+
+
+def account_deleted_view(request):
+    logout(request)
+    return render(request, "account/delete_account.html")
 
 
 def account_favorite_view(request):

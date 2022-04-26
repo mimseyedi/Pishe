@@ -45,7 +45,6 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-12 d-lg-block d-none">
                         <div class="sidebar sticky-bar p-4 rounded shadow">
-
                             <div class="widget mt-4 pt-2">
                                 <h5 class="widget-title">داشبورد  :</h5>
                             </div>
@@ -202,28 +201,7 @@
                                 
                                 <div class="row">
                                     <div class="col-md-6 mt-4 pt-2">
-                                                    {% if form.errors %}
-                                            <div class="alert alert-error">
-                                                {% if messages %}
-                                                    {% for message in messages %}
-                                                      <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
-                                                    {% endfor %}
-                                                  {% endif %}
-                                              <h4>Please fix the following errors</h4>
-                                              <ul>
-                                                {% for field in form %}
-                                                  {% if field.errors %}
-                                                    {% for error in field.errors %}
-                                                      <li><a href="#id_{{ field.name }}" class="error">{{ error|escape }}</a></li>
-                                                    {% endfor %}
-                                                  {% endif %}
-                                                {% endfor %}
-                                              </ul>
-                                              {% if form.non_field_errors %}
-                                                {{ form.non_field_errors }}
-                                              {% endif %}
-                                            </div>
-                                        {% endif %}
+                                        <p style="color:red">{{msg}}</p>
                                         <h5>تغییر رمز عبور : </h5>
                                         <form method="post">
                                             {% csrf_token %}
@@ -233,7 +211,7 @@
                                                         <label class="form-label">رمز عبور قدیمی : </label>
                                                         <div class="form-icon position-relative">
                                                             <i data-feather="key" class="fea icon-sm icons"></i>
-                                                            <input type="password" name="last_pass" class="form-control ps-5" placeholder="رمز قدیمی" required="">
+                                                            <input type="password" name="old_password" class="form-control ps-5" placeholder="رمز قدیمی" required="">
                                                         </div>
                                                     </div>
                                                 </div><!--end col-->
@@ -243,7 +221,7 @@
                                                         <label class="form-label">رمز عبور جدید : </label>
                                                         <div class="form-icon position-relative">
                                                             <i data-feather="key" class="fea icon-sm icons"></i>
-                                                            <input type="password" name="new_pass" class="form-control ps-5" placeholder="رمز جدید" required="">
+                                                            <input type="password" name="new_password1" class="form-control ps-5" placeholder="رمز جدید" required="">
                                                         </div>
                                                     </div>
                                                 </div><!--end col-->
@@ -253,7 +231,7 @@
                                                         <label class="form-label">تایید رمز عبور جدید : </label>
                                                         <div class="form-icon position-relative">
                                                             <i data-feather="key" class="fea icon-sm icons"></i>
-                                                            <input type="password" name="new_pass_conf" class="form-control ps-5" placeholder="رمز عبور جدید" required="">
+                                                            <input type="password" name="new_password2" class="form-control ps-5" placeholder="رمز عبور جدید" required="">
                                                         </div>
                                                     </div>
                                                 </div><!--end col-->
@@ -272,12 +250,21 @@
                             <div class="p-4 border-bottom">
                                 <h5 class="mb-0 text-danger">حذف اکانت :</h5>
                             </div>
-
                             <div class="p-4">
-                                <h6 class="mb-0">آیا می خواهید حساب را حذف کنید؟ لطفاً زیر دکمه "حذف" را فشار دهید</h6>
-                                <div class="mt-4">
-                                    <button class="btn btn-danger">حذف اکانت</button>
+                                <form method="post">
+                                    {% csrf_token %}
+                                <h6 class="mb-0">آیا می خواهید حساب کاربری خود را حذف کنید؟ لطفاً کلمه "موافقم" را در باکس پایین بنویسید و سپس دکمه "حذف" را فشار دهید</h6>
+                                <div class="col-md-6">
+                                    <div class="mb-3"><br>
+                                        <div class="form-icon position-relative">
+                                            <input name="confirm_delete" id="confirm_delete" type="text" class="form-control ps-5" onkeyup="EnableDisable(this)">
+                                        </div>
+                                    </div>
                                 </div><!--end col-->
+                                <div class="mt-4">
+                                    <button id="delete_submit" name="delete_submit" class="btn btn-danger" disabled="disabled">حذف اکانت</button>
+                                </div><!--end col-->
+                                </form>
                             </div>
                         </div>
                     </div><!--end col-->
@@ -285,4 +272,21 @@
             </div><!--end container-->
         </section><!--end section-->
         <!-- تنظیمات پروفایل End -->
+
+
+<script type="text/javascript">
+    function EnableDisable(confirm_delete) {
+        //Reference the Button.
+        var delete_submit = document.getElementById("delete_submit");
+
+        //Verify the TextBox value.
+        if (confirm_delete.value.trim() != "موافقم") {
+            //Enable the TextBox when TextBox has value.
+            delete_submit.disabled = true;
+        } else {
+            //Disable the TextBox when TextBox is empty.
+            delete_submit.disabled = false;
+        }
+    };
+</script>
 {% endblock %}
