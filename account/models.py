@@ -23,12 +23,12 @@ class UserInfo(models.Model):
         verbose_name_plural = 'اطلاعات کاربر'
 
     def __str__(self):
-        return f'{self.id} - {self.user.username}'
+        return f'{self.id} - {self.user}'
 
 
 class ProductFavorite(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="شناسه کاربر")
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="شناسه کتاب", unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name="شناسه کاربر")
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="شناسه کتاب")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ساخت")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروز رسانی")
 

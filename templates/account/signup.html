@@ -52,28 +52,9 @@
                                     <div class="card border-0" style="z-index: 1">
                                         <div class="card-body p-0">
                                             <h4 class="card-title text-center">ثبت نام </h4><br>
-                                            <form class="login-form mt-4">
+                                            <form class="login-form mt-4" method="post">
+                                                {% csrf_token %}
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">نام اصلی  <span class="text-danger">*</span></label>
-                                                            <div class="form-icon position-relative">
-                                                                <i data-feather="user" class="fea icon-sm icons"></i>
-                                                                <input type="text" class="form-control ps-5" placeholder="نام اصلی " name="s" required="">
-                                                            </div>
-                                                        </div>
-                                                    </div><!--end col-->
-
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3"> 
-                                                            <label class="form-label">نام خانوادگی  <span class="text-danger">*</span></label>
-                                                            <div class="form-icon position-relative">
-                                                                <i data-feather="user-check" class="fea icon-sm icons"></i>
-                                                                <input type="text" class="form-control ps-5" placeholder="نام خانوادگی" name="s" required="">
-                                                            </div>
-                                                        </div>
-                                                    </div><!--end col-->
-
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
                                                             <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
@@ -99,23 +80,24 @@
                                                             <label class="form-label">رمز عبور  <span class="text-danger">*</span></label>
                                                             <div class="form-icon position-relative">
                                                                 <i data-feather="key" class="fea icon-sm icons"></i>
-                                                                <input type="password" class="form-control ps-5" placeholder="رمز عبور " required="" name="password">
+                                                                <input type="password" class="form-control ps-5" placeholder="رمز عبور " required="" name="password1">
                                                             </div>
                                                         </div>
                                                     </div><!--end col-->
 
                                                     <div class="col-md-12">
                                                         <div class="mb-3">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                                <label class="form-check-label" for="flexCheckDefault">تایید میکنم <a href="#" class="text-primary">قوانین سایت پیشه را و تیکت را فعال میکنم</a></label>
+                                                            <label class="form-label">تکرار رمز عبور  <span class="text-danger">*</span></label>
+                                                            <div class="form-icon position-relative">
+                                                                <i data-feather="key" class="fea icon-sm icons"></i>
+                                                                <input type="password" class="form-control ps-5" placeholder="تکرار رمز عبور " required="" name="password2">
                                                             </div>
                                                         </div>
                                                     </div><!--end col-->
 
                                                     <div class="col-md-12">
                                                         <div class="d-grid">
-                                                            <button class="btn btn-primary">ثبت نام </button>
+                                                            <button type="submit" class="btn btn-primary">ثبت نام </button>
                                                         </div>
                                                     </div><!--end col-->
 

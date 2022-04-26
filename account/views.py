@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, UserCreationForm
 from django.urls import reverse
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
@@ -10,17 +10,20 @@ from django.contrib.auth.models import User
 
 
 def login_view(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect(reverse("account_info"))
-            else:
-                messages.add_message(request, messages.ERROR, 'اطلاعات وارد شده صحیح نمی باشد!')
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("dashboard"))
+    else:
+        if request.method == "POST":
+            form = AuthenticationForm(request=request, data=request.POST)
+            if form.is_valid():
+                username = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password')
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return HttpResponseRedirect(reverse("account_info"))
+                else:
+                    messages.add_message(request, messages.ERROR, 'اطلاعات وارد شده صحیح نمی باشد!')
 
 
     form = AuthenticationForm()
@@ -37,7 +40,33 @@ def logout_view(request):
 
 
 def signup_view(request):
-    return render(request, "account/signup.html")
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("dashboard"))
+    else:
+        if request.method == "POST":
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                user = User.objects.get(username=request.POST.get("username"))
+                user.email = request.POST.get("email")
+                user.save()
+
+                user_info = UserInfo()
+                user_info.user = user
+                user_info.firstname = "n"
+                user_info.lastname = "n"
+                user_info.meli_code = "n"
+                user_info.mobile_phone = "n"
+                user_info.home_phone = "n"
+                user_info.post_code = "n"
+                user_info.address = "n"
+                user_info.state = "n"
+                user_info.city = "n"
+                user_info.save()
+
+                return HttpResponseRedirect(reverse("login"))
+
+        return render(request, "account/signup.html")
 
 
 def reset_password_view(request):
@@ -123,6 +152,10 @@ def account_info_view(request):
                 form = UserInfoForm(request.POST, instance=current_user)
                 if form.is_valid():
                     form.save()
+                    user = User.objects.get(username=request.user.username)
+                    user.first_name = request.POST.get("firstname")
+                    user.last_name = request.POST.get("lastname")
+                    user.save()
                     return HttpResponseRedirect(reverse("dashboard"))
                 else:
                     messages.add_message(request, messages.ERROR, 'اطلاعات وارد شده صحیح نیست!')

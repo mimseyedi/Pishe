@@ -119,6 +119,10 @@
                                         </div>
                                     </div>
                                 </div><!--end col-->
+                                {% empty %}
+                                <br>
+                                    <h6 class="mb-0">تا به حال هیچ کتابی را نشانه گذاری نکرده اید!</h6><br>
+                                    <a class="text-primary" href="{% url 'bookstore_home' %}">برو به فروشگاه</a><br>
                                 {% endfor %}
                             </div><!--end row-->
                         </div>
