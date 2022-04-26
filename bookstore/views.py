@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from bookstore.models import BookComment, BookStoreCategory, Book
 from django.contrib import messages
 from bookstore.forms import BookCommentForm
+from account.models import ProductFavorite
 
 
 def bookstore_home_view(request, **kwargs):
@@ -32,20 +33,36 @@ def bookstore_home_view(request, **kwargs):
 
 
 def bookstore_single_view(request, book_id, **kwargs):
-    if request.method == "POST":
-        form = BookCommentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.SUCCESS, 'نظر شما با موفقیت ثبت شد! بعد از تایید در صفحه درج خواهد شد.')
-        else:
-            messages.add_message(request, messages.ERROR, 'متاسفانه نظر شما ثبت نشد!')
-
+    products_fav = ProductFavorite.objects.filter(user=request.user.pk)
+    book_exists_in_fav = ProductFavorite.objects.filter(user=request.user.pk, book=book_id)
     book = get_object_or_404(Book, pk=book_id)
+
+    if request.method == "POST":
+        if "comment_submit" in request.POST:
+            form = BookCommentForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.add_message(request, messages.SUCCESS, 'نظر شما با موفقیت ثبت شد! بعد از تایید در صفحه درج خواهد شد.')
+            else:
+                messages.add_message(request, messages.ERROR, 'متاسفانه نظر شما ثبت نشد!')
+
+        elif "unfav_submit" in request.POST:
+            this_book = ProductFavorite.objects.filter(user=request.user.pk, book=book_id)
+            this_book.delete()
+
+        elif "fav_submit" in request.POST:
+            new_fav_book = ProductFavorite()
+            new_fav_book.user = request.user
+            new_fav_book.book = book
+            new_fav_book.save()
+
+
     books = Book.objects.all()
     last_books = books[:6]
     comments = BookComment.objects.filter(book=book.id, approved=True).order_by('-created_date')
 
-    context = {"book": book, "last_books": last_books, "comments": comments}
+    context = {"book": book, "last_books": last_books, "comments": comments, "products_fav": products_fav,
+               "book_exists_in_fav": book_exists_in_fav}
     return render(request, "bookstore/bookstore_single.html", context)
 
 

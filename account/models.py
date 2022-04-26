@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from bookstore.models import Book
 
 
 class UserInfo(models.Model):
@@ -23,3 +24,18 @@ class UserInfo(models.Model):
 
     def __str__(self):
         return f'{self.id} - {self.user.username}'
+
+
+class ProductFavorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="شناسه کاربر")
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="شناسه کتاب", unique=True)
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ساخت")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروز رسانی")
+
+    class Meta:
+        ordering = ['-created_date']
+        verbose_name = 'نشان شده ها'
+        verbose_name_plural = 'نشان شده ها'
+
+    def __str__(self):
+        return f'{self.id}'

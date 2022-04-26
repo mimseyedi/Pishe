@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.urls import reverse
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from account.models import UserInfo
+from account.models import UserInfo, ProductFavorite
 from account.forms import UserInfoForm
 from django.contrib.auth.models import User
 
@@ -101,7 +101,9 @@ def account_deleted_view(request):
 def account_favorite_view(request):
     if request.user.is_authenticated:
         current_user = get_object_or_404(UserInfo, user=request.user.pk)
-        context = {"current_user": current_user}
+        products_fav = ProductFavorite.objects.filter(user=request.user.pk)
+
+        context = {"current_user": current_user, "products_fav": products_fav}
         return render(request, "account/account-favorite.html", context)
     else:
         return HttpResponseRedirect(reverse("login"))

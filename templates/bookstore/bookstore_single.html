@@ -67,7 +67,7 @@
                                         <h6 class="mb-0">تعداد: </h6>
                                         <div class="qty-icons ms-3">
                                             <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-soft-primary minus">-</button>
-                                            <input min="0" name="quantity" value="0" type="number" class="btn btn-icon btn-soft-primary qty-btn quantity">
+                                            <input min="1" name="quantity" max="{{book.count}}" value="1" type="number" class="btn btn-icon btn-soft-primary qty-btn quantity">
                                             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-soft-primary plus">+</button>
                                         </div>
                                     </div>
@@ -75,8 +75,22 @@
                             </div><!--end row--><br><br>
 
                             <div class="mt-4 pt-2">
-                                <a href="javascript:void(0)" class="btn btn-primary">اکنون بخرید </a>
-                                <a href="shop-cart.html" class="btn btn-soft-primary ms-2">افزودن به سبد</a>
+                                {% if request.user.is_authenticated %}
+                                    {% if book_exists_in_fav %}
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" name="unfav_submit" id="unfav_submit" class="btn btn-primary">حذف کردن از نشان شده ها </button>
+                                    </form><br>
+                                    {% else %}
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" name="fav_submit" id="fav_submit" class="btn btn-primary">افزودن به نشان شده ها </button>
+                                    </form><br>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{% url 'login' %}" class="btn btn-primary">افزودن به نشان شده ها </a>
+                                {% endif %}
+                                <a href="shop-cart.html" class="btn btn-soft-primary ms-2">افزودن به سبد خرید</a>
                             </div>
                         </div>
                     </div><!--end col-->
@@ -231,7 +245,7 @@
                                                             <label class="form-label">نظر شما:</label>
                                                             <div class="form-icon position-relative">
                                                                 <i data-feather="message-circle" class="fea icon-sm icons"></i>
-                                                                <textarea id="message" placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
+                                                                <textarea placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
                                                             </div>
                                                         </div>
                                                     </div><!--end col-->
@@ -241,7 +255,7 @@
                                                             <label class="form-label">نام  <span class="text-danger">*</span></label>
                                                             <div class="form-icon position-relative">
                                                                 <i data-feather="user" class="fea icon-sm icons"></i>
-                                                                <input id="name" name="name" type="text" placeholder="نام" class="form-control ps-5" required="" value="{{request.user.get_full_name}}">
+                                                                <input name="name" type="text" placeholder="نام" class="form-control ps-5" required="" value="{{request.user.get_full_name}}">
                                                             </div>
                                                         </div>
                                                     </div><!--end col-->
@@ -251,14 +265,14 @@
                                                             <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
                                                             <div class="form-icon position-relative">
                                                                 <i data-feather="mail" class="fea icon-sm icons"></i>
-                                                                <input id="email" type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="" value="{{request.user.email}}">
+                                                                <input type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="" value="{{request.user.email}}">
                                                             </div>
                                                         </div>
                                                     </div><!--end col-->
 
                                                     <div class="col-md-12">
                                                         <div class="send d-grid">
-                                                            <button type="submit" class="btn btn-primary">ارسال </button>
+                                                            <button name="comment_submit" type="submit" class="btn btn-primary">ارسال </button>
                                                         </div>
                                                     </div><!--end col-->
                                                 </div><!--end row-->
@@ -276,7 +290,7 @@
                                                             <label class="form-label">نظر شما:</label>
                                                             <div class="form-icon position-relative">
                                                                 <i data-feather="message-circle" class="fea icon-sm icons"></i>
-                                                                <textarea id="message" placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
+                                                                <textarea placeholder="کامنت شما" rows="5" name="message" class="form-control ps-5" required=""></textarea>
                                                             </div>
                                                         </div>
                                                     </div><!--end col-->
@@ -286,7 +300,7 @@
                                                             <label class="form-label">نام  <span class="text-danger">*</span></label>
                                                             <div class="form-icon position-relative">
                                                                 <i data-feather="user" class="fea icon-sm icons"></i>
-                                                                <input id="name" name="name" type="text" placeholder="نام" class="form-control ps-5" required="">
+                                                                <input name="name" type="text" placeholder="نام" class="form-control ps-5" required="">
                                                             </div>
                                                         </div>
                                                     </div><!--end col-->
@@ -296,14 +310,14 @@
                                                             <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
                                                             <div class="form-icon position-relative">
                                                                 <i data-feather="mail" class="fea icon-sm icons"></i>
-                                                                <input id="email" type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="">
+                                                                <input type="email" placeholder="ایمیل" name="email" class="form-control ps-5" required="">
                                                             </div>
                                                         </div>
                                                     </div><!--end col-->
 
                                                     <div class="col-md-12">
                                                         <div class="send d-grid">
-                                                            <button type="submit" class="btn btn-primary">ارسال </button>
+                                                            <button name="comment_submit" type="submit" class="btn btn-primary">ارسال </button>
                                                         </div>
                                                     </div><!--end col-->
                                                 </div><!--end row-->
@@ -491,7 +505,7 @@
 
                                                     <div class="col-md-12">
                                                         <div class="send d-grid">
-                                                            <button type="submit" class="btn btn-primary">ارسال </button>
+                                                            <button name="comment_submit" type="submit" class="btn btn-primary">ارسال </button>
                                                         </div>
                                                     </div><!--end col-->
                                                 </div><!--end row-->
@@ -536,7 +550,7 @@
 
                                                     <div class="col-md-12">
                                                         <div class="send d-grid">
-                                                            <button type="submit" class="btn btn-primary">ارسال </button>
+                                                            <button name="comment_submit" type="submit" class="btn btn-primary">ارسال </button>
                                                         </div>
                                                     </div><!--end col-->
                                                 </div><!--end row-->
@@ -567,10 +581,6 @@
                                         <a href="{% url 'bookstore_single' book_id=last_book.id %}" class="overlay-work">
                                             <img src="{{last_book.image.url}}" class="img-fluid" alt="">
                                         </a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="shop-cart.html" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>
                                     </div>
                                     <div class="card-body content pt-4 p-2">
                                         <a href="{% url 'bookstore_single' book_id=last_book.id %}" class="text-dark product-name h6">{{last_book.title}}</a>

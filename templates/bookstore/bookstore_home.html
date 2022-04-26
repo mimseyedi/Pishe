@@ -112,10 +112,6 @@
                                         <a href="{% url 'bookstore_single' book_id=book.id %}" class="overlay-work">
                                             <img src="{{book.image.url}}" class="img-fluid" alt="">
                                         </a>
-                                        <ul class="list-unstyled shop-icons">
-                                            <li><a href="{% url 'bookstore_single' book_id=book.id %}" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
-                                            <li class="mt-2"><a href="shop-cart.html" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
-                                        </ul>
                                     </div>
                                     <div class="card-body content pt-4 p-2">
                                         <a href="{% url 'bookstore_single' book_id=book.id %}" class="text-dark product-name h6">{{book.title}}</a>
