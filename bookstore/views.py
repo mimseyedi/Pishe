@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from bookstore.models import BookComment, BookStoreCategory, Book
+from bookstore.models import BookComment, BookStoreCategory, Book, Cart, Product
 from django.contrib import messages
 from bookstore.forms import BookCommentForm
 from account.models import ProductFavorite
+from random import randint
 
 
 def bookstore_home_view(request, **kwargs):
@@ -36,6 +37,7 @@ def bookstore_single_view(request, book_id, **kwargs):
     products_fav = ProductFavorite.objects.filter(user=request.user.pk)
     book_exists_in_fav = ProductFavorite.objects.filter(user=request.user.pk, book=book_id)
     book = get_object_or_404(Book, pk=book_id)
+    cart = Cart.objects.filter(user=request.user)
 
     if request.method == "POST":
         if "comment_submit" in request.POST:
@@ -56,13 +58,35 @@ def bookstore_single_view(request, book_id, **kwargs):
             new_fav_book.book = book
             new_fav_book.save()
 
+        elif "add_to_cart_submit" in request.POST:
+            if not Product.objects.filter(book=book):
+                new_prod = Product.objects.create(book=book, count=request.POST.get("count"))
+                user_cart = Cart.objects.get(user=request.user)
+                user_cart.product.add(new_prod)
+                total_p = 0
+                for product in user_cart.product.all():
+                    total_p += product.book.price * product.count
+                user_cart.total_price = total_p
+                user_cart.save()
+            else:
+                user_cart = Cart.objects.get(user=request.user)
+                total_p = 0
+                pr = Product.objects.get(book=book)
+                c = request.POST.get("count")
+                pr.count += int(c)
+                pr.save()
+                user_cart.product.add(pr)
+                for product in user_cart.product.all():
+                    total_p += product.book.price * product.count
+                user_cart.total_price = total_p
+                user_cart.save()
 
     books = Book.objects.all()
     last_books = books[:6]
     comments = BookComment.objects.filter(book=book.id, approved=True).order_by('-created_date')
 
     context = {"book": book, "last_books": last_books, "comments": comments, "products_fav": products_fav,
-               "book_exists_in_fav": book_exists_in_fav}
+               "book_exists_in_fav": book_exists_in_fav, "cart": cart}
     return render(request, "bookstore/bookstore_single.html", context)
 
 

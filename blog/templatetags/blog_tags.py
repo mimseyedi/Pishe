@@ -2,6 +2,8 @@ from django import template
 from blog.MiladiToShamsi import shamsiDate
 from datetime import datetime
 from django.contrib.humanize.templatetags.humanize import intcomma
+from bookstore.models import Cart, Product, Order
+from django.contrib.auth.models import User
 
 register = template.Library()
 
@@ -40,3 +42,10 @@ def shamsidate(d):
 def currency(price):
     int_price = int(price)
     return '{:,}'.format(int_price)
+
+
+
+@register.simple_tag()
+def user_cart_func(request):
+    user_cart = Cart.objects.get(user=request.user)
+    return {"products": user_cart.product, "total_price": user_cart.total_price}

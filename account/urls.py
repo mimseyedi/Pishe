@@ -11,6 +11,7 @@ urlpatterns = [
     path('dashboard', views.dashboard_view, name="dashboard"),
     path('setting', views.account_setting_view, name="account_sett"),
     path('favorite', views.account_favorite_view, name="account_fav"),
+    path('orders', views.account_orders_view, name="account_ord"),
     path('password_changed', views.pass_changed_view, name="pass_changed"),
     path('account_deleted', views.account_deleted_view, name="account_del"),
 ]

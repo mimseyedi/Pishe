@@ -2,7 +2,8 @@
 {% load static %}
 {% load blog_tags %}
 {% block content %}
-        
+
+
         <!-- Hero Start -->
         <section class="bg-profile d-table w-100 bg-primary" style="background: url({% static 'images/dashboard-bg.png' %}) center center;">
             <div class="container">
@@ -105,26 +106,67 @@
 
                     <div class="col-lg-8 col-12">
                         <div class="rounded shadow p-4">
-                            <h5 class="mb-0">نشان شده ها: </h5>
-                            <div class="row projects-wrapper">
-                                {% for pf in products_fav %}
-                                <div class="col-md-6 col-12 mt-4 pt-2">
-                                    <div class="card border-0 work-container work-classic">
-                                        <div class="card-body p-0">
-                                            <a href="{% url 'bookstore_single' book_id=pf.book.id %}"><img src="{{pf.book.image.url}}" class="img-fluid rounded work-image" alt=""></a>
-                                            <div class="content pt-3">
-                                                <h5 class="mb-0"><a href="{% url 'bookstore_single' book_id=pf.book.id %}" class="text-dark title">{{pf.book.title}}</a></h5>
-                                                <h6 class="text-muted tag mb-0">{{pf.book.publication}}</h6>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5 class="mb-0">لیست سفارش ها:</h5>
+                            </div>
+                            <br>
+                            <!-- Modal Content Start -->
+                            {% for order in orders %}
+                            <div class="modal fade" id="p{{order.order_id}}" tabindex="-1" aria-labelledby="composemail-title" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content rounded shadow border-0">
+                                        <div class="modal-header border-bottom">
+                                            <h5 class="modal-title" id="composemail-title">جزئیات سفارش {{order.order_id}}</h5><br>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                                        </div>
+                                        <div class="modal-body p-4" style="overflow-y: scroll; height:400px;">
+                                            {% for p in order.product.all %}
+                                            <div class="d-flex border-bottom p-3">
+                                                <div class="form-check ps-0">
+                                                    <div class="mb-0">
+                                                        <div class="form-check">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="{% url 'bookstore_single' book_id=p.book.id %}">
+                                                    <div class="d-flex ms-2">
+                                                        <img src="{{p.book.image.url}}" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="">
+                                                        <div class="flex-1 ms-3">
+                                                            <h6 class="text-dark">نام کتاب : {{p.book.title}}</h6>
+                                                            <p class="text-muted mb-0">تعداد : {{p.count}}</p>
+                                                             <p class="text-muted mb-0">قیمت : {{p.book.price|currency}} تومان</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
                                             </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="border-top p-4">
+                                            <h6 class="modal-title" id="pay-title">مجموع قیمت : {{total|currency}} تومان</h6>
+                                            <h6 class="modal-title" id="pay-title">وضعیت سفارش : پرداخت شده</h6>
+                                            <h6 class="modal-title" id="pay-title">تاریخ ثبت سفارش : {{order.created_date|shamsidate}}</h6>
                                         </div>
                                     </div>
-                                </div><!--end col-->
-                                {% empty %}
-                                <br>
-                                    <h6 class="mb-0">تا به حال هیچ کتابی را نشانه گذاری نکرده اید!</h6><br>
-                                    <a class="text-primary" href="{% url 'bookstore_home' %}">برو به فروشگاه</a><br>
-                                {% endfor %}
-                            </div><!--end row-->
+                                </div>
+                            </div>
+                            <!-- Modal Content End -->
+                            {% endfor %}
+
+
+                            {% for order in orders %}
+                            <div class="d-flex border-bottom p-3">
+                                <a href="javascript:void(0)">
+                                    <div class="d-flex ms-2">
+                                        <img src="{% static 'images/cart.png' %}" data-bs-toggle="modal" data-bs-target="#p{{order.order_id}}" class="avatar avatar-md-sm rounded-pill shadow" alt="">
+                                        <div class="flex-1 ms-3">
+                                            <h6 class="text-dark" data-bs-toggle="modal" data-bs-target="#composemail">سفارش {{order.order_id}}</h6>
+                                            <p class="text-muted mb-0">{{order.created_date|shamsidate}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->

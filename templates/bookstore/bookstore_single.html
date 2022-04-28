@@ -62,17 +62,21 @@
                             <p class="text-muted">{{book.description|safe}}</p>
 
                             <div class="row mt-4 pt-2">
-                                <div class="col-lg-6 col-12 mt-4 mt-lg-0">
-                                    <div class="d-flex shop-list align-items-center">
-                                        <h6 class="mb-0">تعداد: </h6>
-                                        <div class="qty-icons ms-3">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-soft-primary minus">-</button>
-                                            <input min="1" name="quantity" max="{{book.count}}" value="1" type="number" class="btn btn-icon btn-soft-primary qty-btn quantity">
-                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-soft-primary plus">+</button>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+                                        <div class="d-flex shop-list align-items-center">
+                                            <h6 class="mb-0">تعداد: </h6>
+                                            <div class="qty-icons ms-3">
+                                                <input min="1" name="count" id="count" max="{{book.count}}" value="1" type="number" class="btn btn-icon btn-soft-primary quantity">
+                                            </div>
                                         </div>
+                                    </div><!--end col-->
+                                    <div><br>
+                                        <button type="submit" name="add_to_cart_submit" id="add_to_cart_submit" class="btn btn-soft-primary ms-2">افزودن کتاب به سبد خرید</button>
                                     </div>
-                                </div><!--end col-->
-                            </div><!--end row--><br><br>
+                                </form>
+                            </div><!--end row-->
 
                             <div class="mt-4 pt-2">
                                 {% if request.user.is_authenticated %}
@@ -80,7 +84,7 @@
                                     <form method="post">
                                         {% csrf_token %}
                                         <button type="submit" name="unfav_submit" id="unfav_submit" class="btn btn-primary">حذف کردن از نشان شده ها </button>
-                                    </form><br>
+                                    </form>
                                     {% else %}
                                     <form method="post">
                                         {% csrf_token %}
@@ -90,7 +94,6 @@
                                 {% else %}
                                     <a href="{% url 'login' %}" class="btn btn-primary">افزودن به نشان شده ها </a>
                                 {% endif %}
-                                <a href="shop-cart.html" class="btn btn-soft-primary ms-2">افزودن به سبد خرید</a>
                             </div>
                         </div>
                     </div><!--end col-->

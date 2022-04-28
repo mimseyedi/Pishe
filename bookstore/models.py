@@ -71,8 +71,26 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="شناسه کاربر", default=0)
+    product = models.ManyToManyField(Product, blank=True, verbose_name="محصولات")
+    is_paid = models.BooleanField(default=False, verbose_name="وضعیت پرداخت")
+    order_id = models.IntegerField(default=0, verbose_name="شناسه خرید")
+    total_price = models.FloatField(default=0, verbose_name="مجموع قیمت")
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ساخت")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروز رسانی")
+
+    class Meta:
+        ordering = ['-created_date']
+        verbose_name = 'سبد خرید'
+        verbose_name_plural = 'سبد خرید'
+
+    def __str__(self):
+        return f'{self.user.username} - {self.user.get_full_name}'
+
+
+class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="شناسه کاربر")
-    is_paid = models.BooleanField(default=False)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name="سبد خرید")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ساخت")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروز رسانی")
 

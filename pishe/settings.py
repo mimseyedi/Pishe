@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'bookstore.apps.BookstoreConfig',
     'account.apps.AccountConfig',
+    'mathfilters',
     'django_summernote',
 ]
 

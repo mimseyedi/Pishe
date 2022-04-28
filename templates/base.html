@@ -1,4 +1,7 @@
 {% load static %}
+{% load mathfilters %}
+{% load blog_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,49 +50,40 @@
                         <img src="{% static 'images/logo-light.png' %}" class="l-light" height="30" alt="">
                     </a>
                 </div>
+
                 {% if request.user.is_authenticated %}
+                {% user_cart_func request as user_cart %}
                 <ul class="buy-button list-inline mb-0">
                     <li class="list-inline-item mb-0 pe-1">
                         <div class="dropdown">
                             <button type="button" class="btn btn-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-shopping-cart align-middle icons"></i></button>
                             <div class="dropdown-menu dd-menu dropdown-menu-end bg-white shadow rounded border-0 mt-3 p-4" style="width: 300px;">
                                 <div class="pb-4">
-                                    <a href="javascript:void(0)" class="d-flex align-items-center">
-                                        <img src="images/shop/product/s-1.jpg" class="shadow rounded" style="max-height: 64px;" alt="">
+                                    {% if user_cart.products.all %}
+                                    {% for product in user_cart.products.all %}
+                                    <a href="{% url 'bookstore_single' book_id=product.book.id %}" class="d-flex align-items-center">
+                                        <img src="{{product.book.image.url}}" class="shadow rounded" style="max-height: 64px;" alt="">
                                         <div class="flex-1 text-start ms-3">
-                                            <h6 class="text-dark mb-0">تی شرت (مردانه)</h6>
-                                            <p class="text-muted mb-0">230 هزار تومان</p>
+                                            <h6 class="text-dark mb-0">{{product.book.title}}</h6>
+                                            <p class="text-muted mb-0">{{product.book.price|currency}}  تومان</p>
+                                            <p class="text-muted mb-0">{{product.count}} عدد </p>
                                         </div>
-                                        <h6 class="text-dark mb-0">230 هزار تومان</h6>
+                                        <h6 class="text-dark mb-0">{{product.book.price|mul:product.count|currency}} تومان</h6>
                                     </a>
-
-                                    <a href="javascript:void(0)" class="d-flex align-items-center mt-4">
-                                        <img src="images/shop/product/s-2.jpg" class="shadow rounded" style="max-height: 64px;" alt="">
-                                        <div class="flex-1 text-start ms-3">
-                                            <h6 class="text-dark mb-0">کیسه </h6>
-                                            <p class="text-muted mb-0">50 هزار تومان | 2 عدد</p>
-                                        </div>
-                                        <h6 class="text-dark mb-0">100 هزار تومان</h6>
-                                    </a>
-
-                                    <a href="javascript:void(0)" class="d-flex align-items-center mt-4">
-                                        <img src="images/shop/product/s-3.jpg" class="shadow rounded" style="max-height: 64px;" alt="">
-                                        <div class="flex-1 text-start ms-3">
-                                            <h6 class="text-dark mb-0">ساعت (مردانه)</h6>
-                                            <p class="text-muted mb-0">800 هزار تومان<br> 1 عدد</p>
-                                        </div>
-                                        <h6 class="text-dark mb-0">800 هزار تومان</h6>
-                                    </a>
-                                </div>
+                                    {% endfor %}
 
                                 <div class="d-flex align-items-center justify-content-between pt-4 border-top">
                                     <h6 class="text-dark mb-0">مجموع (تومان):</h6>
-                                    <h6 class="text-dark mb-0">1,150,000 تومان</h6>
+                                    <h6 class="text-dark mb-0">{{user_cart.total_price|currency}} تومان</h6>
                                 </div>
                                 <br>
                                 <div class="mt-3 text-center">
                                     <a href="javascript:void(0)" class="btn btn-primary me-2">پرداخت صورت حساب </a>
                                 </div>
+                                    {% else %}
+                                        <p class="text-muted mb-0">سبد خرید شما خالی است! </p>
+                                        <a href="{% url 'bookstore_home' %}" class="d-flex align-items-center">به فروشگاه بروید.</a>
+                                    {% endif %}
                             </div>
                         </div>
                     </li>
@@ -127,7 +121,7 @@
                         <!-- End mobile menu toggle-->
                     </div>
                 </div>
-
+                {{user_cart.j.0}}
                 <div id="navigation">
                     <!-- Navigation Menu-->
                     <ul class="navigation-menu nav-light">

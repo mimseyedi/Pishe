@@ -7,6 +7,8 @@ from django.contrib import messages
 from account.models import UserInfo, ProductFavorite
 from account.forms import UserInfoForm
 from django.contrib.auth.models import User
+from bookstore.models import Cart, Product, Order
+from random import randint
 
 
 def login_view(request):
@@ -33,6 +35,11 @@ def login_view(request):
 
 def logout_view(request):
     if request.user.is_authenticated:
+        product = Product.objects.all()
+        product.delete()
+        user_cart = Cart.objects.get(user=request.user)
+        user_cart.total_price = 0
+        user_cart.save()
         logout(request)
         return redirect('/')
     else:
@@ -64,6 +71,11 @@ def signup_view(request):
                 user_info.city = "n"
                 user_info.save()
 
+                user_cart = Cart()
+                user_cart.user = User.objects.get(username=request.POST.get("username"))
+                user_cart.is_paid = False
+                user_cart.order_id = randint(10000, 100000)
+                user_cart.save()
                 return HttpResponseRedirect(reverse("login"))
 
         return render(request, "account/signup.html")
@@ -134,6 +146,16 @@ def account_favorite_view(request):
 
         context = {"current_user": current_user, "products_fav": products_fav}
         return render(request, "account/account-favorite.html", context)
+    else:
+        return HttpResponseRedirect(reverse("login"))
+
+
+def account_orders_view(request):
+    if request.user.is_authenticated:
+        orders = Order.objects.filter(user=request.user)
+
+        context = {"orders": orders}
+        return render(request, "account/account-orders.html", context)
     else:
         return HttpResponseRedirect(reverse("login"))
 
