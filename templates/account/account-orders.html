@@ -152,6 +152,7 @@
                             <!-- Modal Content End -->
                             {% endfor %}
 
+                            {% if orders %}
                             {% for order in orders %}
                             <div class="d-flex border-bottom p-3">
                                 <a href="javascript:void(0)">
@@ -165,6 +166,15 @@
                                 </a>
                             </div>
                             {% endfor %}
+                            {% else %}
+                            <div class="d-flex border-bottom p-3">
+                                <a href="{% url 'bookstore_home' %}">
+                                    <div class="d-flex ms-2">
+                                        <p>در حال حاضر شما هیچ سفارشی را ثبت نکرده اید!</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endif %}
                         </div>
                     </div><!--end col-->
                 </div><!--end row-->

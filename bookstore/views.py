@@ -12,7 +12,7 @@ from random import randint
 
 def bookstore_home_view(request, **kwargs):
     books = Book.objects.all()
-    last_books = books[:4]
+    last_books = books[:5]
     categories = BookStoreCategory.objects.all().annotate(posts_count=Count('book'))
 
     if request.method == "GET":
@@ -31,7 +31,7 @@ def bookstore_home_view(request, **kwargs):
     except EmptyPage:
         books = books.get_page(1)
 
-    context = {"books": books, "categories": categories, "last_books": books}
+    context = {"books": books, "categories": categories, "last_books": last_books}
     return render(request, "bookstore/bookstore_home.html", context)
 
 
