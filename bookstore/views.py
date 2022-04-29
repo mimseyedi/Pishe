@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.db.models import Count
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from bookstore.models import BookComment, BookStoreCategory, Book, Cart, Product
 from django.contrib import messages
 from bookstore.forms import BookCommentForm
 from account.models import ProductFavorite
+from django.urls import reverse
 from random import randint
 
 
@@ -95,5 +96,32 @@ def checkout_view(request):
 
 
 def cart_view(request):
+    user_cart = Cart.objects.get(user=request.user)
 
-    return render(request, "bookstore/bookstore_cart.html")
+    if request.method == "POST":
+        if "update_submit" in request.POST:
+            for product in user_cart.product.all():
+                if product.count != int(request.POST.get(f"product_count{product.pk}")):
+                    product.count = int(request.POST.get(f"product_count{product.pk}"))
+                    product.save()
+
+            total_p = 0
+            for product in user_cart.product.all():
+                total_p += product.book.price * product.count
+            user_cart.total_price = total_p
+            user_cart.save()
+
+        elif "del_submit" in request.POST:
+            product = Product.objects.get(pk=int(request.POST.get("product_pk")))
+            product.delete()
+            total_p = 0
+            for product in user_cart.product.all():
+                total_p += product.book.price * product.count
+            user_cart.total_price = total_p
+            user_cart.save()
+            return HttpResponseRedirect(reverse("cart"))
+
+
+
+    context = {"user_cart": user_cart}
+    return render(request, "bookstore/bookstore_cart.html", context)

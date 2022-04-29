@@ -44,7 +44,6 @@ def currency(price):
     return '{:,}'.format(int_price)
 
 
-
 @register.simple_tag()
 def user_cart_func(request):
     user_cart = Cart.objects.get(user=request.user)
