@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load blog_tags %}
+{% load mathfilters %}
 {% block content %}
 
         <!-- Hero Start -->
@@ -133,7 +134,7 @@
                                                         <div class="flex-1 ms-3">
                                                             <h6 class="text-dark">نام کتاب : {{p.book.title}}</h6>
                                                             <p class="text-muted mb-0">تعداد : {{p.count}}</p>
-                                                             <p class="text-muted mb-0">قیمت : {{p.book.price|currency}} تومان</p>
+                                                             <p class="text-muted mb-0">قیمت : {{p.book.price|mul:p.count|currency}} تومان</p>
                                                         </div>
                                                     </div>
                                                 </a>
@@ -141,7 +142,7 @@
                                             {% endfor %}
                                         </div>
                                         <div class="border-top p-4">
-                                            <h6 class="modal-title" id="pay-title">مجموع قیمت : {{total|currency}} تومان</h6>
+                                            <h6 class="modal-title" id="pay-title">مجموع قیمت : {{order.total_price|currency}} تومان</h6>
                                             <h6 class="modal-title" id="pay-title">وضعیت سفارش : پرداخت شده</h6>
                                             <h6 class="modal-title" id="pay-title">تاریخ ثبت سفارش : {{order.created_date|shamsidate}}</h6>
                                         </div>
@@ -155,10 +156,10 @@
                             <div class="d-flex border-bottom p-3">
                                 <a href="javascript:void(0)">
                                     <div class="d-flex ms-2">
-                                        <img src="{% static 'images/cart.png' %}" data-bs-toggle="modal" data-bs-target="#p{{order.order_id}}" class="avatar avatar-md-sm rounded-pill shadow" alt="">
+                                        <img src="{% static 'images/order-logo.png' %}" data-bs-toggle="modal" data-bs-target="#p{{order.order_id}}" class="avatar avatar-md-sm rounded-pill shadow" alt="">
                                         <div class="flex-1 ms-3">
-                                            <h6 class="text-dark" data-bs-toggle="modal" data-bs-target="#composemail">سفارش {{order.order_id}}</h6>
-                                            <p class="text-muted mb-0">{{order.created_date|shamsidate}}</p>
+                                            <h6 class="text-dark" data-bs-toggle="modal" data-bs-target="#p{{order.order_id}}">سفارش {{order.order_id}}</h6>
+                                            <p class="text-muted mb-0" data-bs-toggle="modal" data-bs-target="#p{{order.order_id}}">{{order.created_date|shamsidate}}</p>
                                         </div>
                                     </div>
                                 </a>

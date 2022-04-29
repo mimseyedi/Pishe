@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bookstore.models import Book, BookStoreCategory, BookComment, Product, Cart, Order
+from bookstore.models import Book, BookStoreCategory, BookComment, Product, Cart, Order, OrderProduct
 from django_summernote.admin import SummernoteModelAdmin
 
 
@@ -45,11 +45,19 @@ class CartAdmin(admin.ModelAdmin):
     search_fields = ('user',)
 
 
-@admin.register(Order)
-class CartAdmin(admin.ModelAdmin):
+@admin.register(OrderProduct)
+class OrderProductAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_date'
     empty_value_display = "-EMPTY-"
-    list_display = ('user', 'cart')
+    list_display = ('book', 'count')
+    search_fields = ('book',)
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created_date'
+    empty_value_display = "-EMPTY-"
+    list_display = ('user', 'order_id')
     list_filter = ('order_id',)
     search_fields = ('order_id', 'user')
 

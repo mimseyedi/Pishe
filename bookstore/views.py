@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.db.models import Count
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from bookstore.models import BookComment, BookStoreCategory, Book, Cart, Product, Order
+from bookstore.models import BookComment, BookStoreCategory, Book, Cart, Product, Order, OrderProduct
 from django.contrib import messages
 from bookstore.forms import BookCommentForm
 from account.models import UserInfo
@@ -97,6 +97,33 @@ def checkout_view(request):
         user_info = UserInfo.objects.get(user=request.user)
         user_cart = Cart.objects.get(user=request.user)
 
+        if request.method == "POST":
+            products = Product.objects.all()
+            for p in products:
+                check_p = OrderProduct.objects.filter(book=p.book, count=p.count)
+                if not check_p:
+                    prod = OrderProduct.objects.create(book=p.book, count=p.count)
+
+            order = Order()
+            order.user = request.user
+            order.total_price = user_cart.total_price
+            order.order_id = randint(10000, 100000)
+            order.save()
+
+            user_order = Order.objects.get(order_id=order.order_id)
+
+            for p in products:
+                order_prod = OrderProduct.objects.get(book=p.book, count=p.count)
+                user_order.product.add(order_prod)
+
+            products = Product.objects.all()
+            products.delete()
+
+            user_cart.total_price = 0
+            user_cart.save()
+
+            return HttpResponseRedirect(reverse("suc_paid"))
+
         context = {"user": user_info, "user_cart": user_cart}
         return render(request, "bookstore/bookstore_checkouts.html", context)
     else:
@@ -138,19 +165,6 @@ def cart_view(request):
 
 def suc_paid_view(request):
     if request.user.is_authenticated:
-        order = Order()
-        order.user = request.user
-        order.cart = user_cart
-        order.order_id = randint(10000, 100000)
-        order.save()
-
-        product = Product.objects.all()
-        product.delete()
-
-        user_cart = Cart.objects.get(user=request.user)
-        user_cart.total_price = 0
-        user_cart.save()
+        return render(request, "bookstore/bookstore_pay_accepted.html")
     else:
         return HttpResponseRedirect(reverse("login"))
-
-    return render(request, "bookstore/bookstore_pay_accepted.html")

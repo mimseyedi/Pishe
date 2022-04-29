@@ -85,16 +85,31 @@ class Cart(models.Model):
         verbose_name_plural = 'سبد خرید'
 
     def __str__(self):
-        return f'{self.user.username} - {self.user.get_full_name}'
+        return f'{self.user.username} - {self.user}'
+
+
+class OrderProduct(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="شناسه کتاب")
+    count = models.PositiveSmallIntegerField()
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ساخت")
+    updated_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروز رسانی")
+
+    class Meta:
+        ordering = ['-created_date']
+        verbose_name = 'محصولات سفارش'
+        verbose_name_plural = 'محصولات سفارش'
+
+    def __str__(self):
+        return f'{self.count} - {self.book}'
 
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="شناسه کاربر")
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name="سبد خرید")
+    product = models.ManyToManyField(OrderProduct, blank=True, verbose_name="محصولات")
+    total_price = models.FloatField(default=0, verbose_name="مجموع قیمت")
     order_id = models.IntegerField(default=0, verbose_name="شناسه خرید")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ساخت")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروز رسانی")
-
 
     class Meta:
         ordering = ['-created_date']
@@ -102,4 +117,4 @@ class Order(models.Model):
         verbose_name_plural = 'سفارشات'
 
     def __str__(self):
-        return f'{self.user.username} - {self.user.get_full_name}'
+        return f'{self.user.username} - {self.user}'

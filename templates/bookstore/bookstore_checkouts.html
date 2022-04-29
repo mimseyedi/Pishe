@@ -44,8 +44,6 @@
                     <div class="col-lg-7 col-md-6">
                         <div class="rounded shadow-lg p-4">
                             <h5 class="mb-0">جزئیات صورتحساب :</h5>
-
-                            <form class="mt-4">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="mb-3">
@@ -103,7 +101,6 @@
                                         </div><br><br>
                                     </div><!--end col-->
                                 </div><!--end row-->
-                            </form><!--end form-->
                         </div>
                     </div><!--end col-->
 
@@ -113,6 +110,7 @@
                                 <h5>4 آیتم </h5>
                                 <a href="{% url 'cart' %}" class="text-muted h6">نمایش جزئیات</a>
                             </div>
+                            <form method="post">
                             <div class="table-responsive">
                                 <table class="table table-center table-padding mb-0">
                                     <tbody>
@@ -154,13 +152,12 @@
 
                                 <div class="mt-4 pt-2">
                                     <div class="d-grid">
-                                        <form method="post">
                                             {% csrf_token %}
-                                            <button style="width:100%;" type="submit" class="btn btn-primary">پرداخت</button>
-                                        </form>
+                                            <button type="submit" class="btn btn-primary" style="width:100%;">پرداخت</button>
                                     </div>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div><!--end row-->
