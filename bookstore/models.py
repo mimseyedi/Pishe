@@ -91,13 +91,15 @@ class Cart(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="شناسه کاربر")
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name="سبد خرید")
+    order_id = models.IntegerField(default=0, verbose_name="شناسه خرید")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ساخت")
     updated_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ بروز رسانی")
 
+
     class Meta:
         ordering = ['-created_date']
-        verbose_name = 'سبد خرید'
-        verbose_name_plural = 'سبد خرید'
+        verbose_name = 'سفارش'
+        verbose_name_plural = 'سفارشات'
 
     def __str__(self):
         return f'{self.user.username} - {self.user.get_full_name}'

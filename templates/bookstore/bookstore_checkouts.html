@@ -4,26 +4,30 @@
 {% block content %}
 
         <!-- Hero Start -->
-        <section class="bg-half bg-light d-table w-100">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 text-center">
-                        <div class="page-next-level">
-                            <h4 class="title"> صندوق ها </h4>
-                            <div class="page-next">
-                                <nav aria-label="breadcrumb" class="d-inline-block">
-                                    <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                        <li class="breadcrumb-item"><a href="index.html">لنـدریـک </a></li>
-                                        <li class="breadcrumb-item"><a href="index-shop.html">فروشگاه </a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">صندوق ها </li>
-                                    </ul>
-                                </nav>
+        <section class="bg-half d-table w-100" style="background: url({% static 'images/pay-bg.jpg' %});">
+            <div class="bg-overlay"></div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 text-center">
+                            <div class="page-next-level">
+                                <h2 class="text-white title-dark">پرداخت صورت حساب</h2>
+                                <div class="page-next">
+                                    <nav aria-label="breadcrumb" class="d-inline-block">
+                                        <ul class="breadcrumb bg-white rounded shadow mb-0">
+                                            <li class="breadcrumb-item"><a href="{% url 'home' %}">صفحه اصلی</a></li>
+                                            <li class="breadcrumb-item"><a href="{% url 'bookstore_home' %}">کتابفروشی</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">پرداخت صورت حساب</li>
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
-                        </div>
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div> <!--end container-->
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div> <!--end container-->
         </section><!--end section-->
+        <!-- Hero End -->
+
+        <!-- Shape Start -->
         <div class="position-relative">
             <div class="shape overflow-hidden text-white">
                 <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +35,7 @@
                 </svg>
             </div>
         </div>
-        <!-- Hero End -->
+        <!--Shape End-->
 
         <!-- Start -->
         <section class="section">
@@ -46,105 +50,60 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">نام شما <span class="text-danger">*</span></label>
-                                            <input name="name" id="firstname" type="text" class="form-control" placeholder="نام اول :">
+                                            <input name="firstname" id="firstname" type="text" class="form-control" placeholder="به عنوان مثال : محمد" value="{{user.firstname}}">
                                         </div>
                                     </div><!--end col-->
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">نام خانوادگی  <span class="text-danger">*</span></label>
-                                            <input name="name" id="lastname" type="text" class="form-control" placeholder="نام خانوادگی :">
+                                            <input name="lastname" id="lastname" type="text" class="form-control" placeholder="به عنوان مثال‌ : محمدی" value="{{user.lastname}}">
                                         </div>
                                     </div><!--end col-->
                                     <div class="col-12">
                                         <div class="mb-3">
-                                            <label class="form-label">نام شرکت  <span class="text-muted">(اختیاری)</span></label>
-                                            <input name="name" id="companyname" type="text" class="form-control" placeholder="نام شرکت :">
+                                            <label class="form-label">کد ملی  <span class="text-danger">*</span></label>
+                                            <input name="meli_code" id="meli_code" type="text" class="form-control" placeholder="کد ملی ۱۰ رقمی" value="{{user.meli_code}}">
                                         </div>
                                     </div><!--end col-->
                                     <div class="col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">آدرس خیابان <span class="text-danger">*</span></label>
-                                            <input type="text" name="address1" id="address1" class="form-control" placeholder="شماره خانه و نام خیابان :">
-                                        </div>
-                                    </div><!--end col-->
-                                    <div class="col-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">آپارتمان، واحد 44. <span class="text-muted">(اختیاری)</span></label>
-                                            <input type="text" name="address2" id="address2" class="form-control" placeholder="آپارتمان، واحد 44. :">
-                                        </div>
-                                    </div><!--end col-->
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">شهر / منطقه <span class="text-danger">*</span></label>
-                                            <input type="text" name="city" id="city" class="form-control" placeholder="نام شهر :">
-                                        </div>
-                                    </div><!--end col-->
-                                    <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">کد پستی  <span class="text-danger">*</span></label>
-                                            <input type="text" name="postcode" id="postcode" class="form-control" placeholder="کد پستی :">
-                                        </div>
-                                    </div><!--end col-->
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">منطقه  <span class="text-danger">*</span></label>
-                                            <input type="text" name="state" id="state" class="form-control" placeholder="نام شهر :">
-                                        </div>
-                                    </div><!--end col-->
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">کشور <span class="text-danger">*</span></label>
-                                            <select class="form-select form-control" aria-label="به طور پیش فرض مثال انتخاب کنید">
-                                                <option selected>هند </option>
-                                                <option value="AF">افغانستان </option>
-                                                <option value="AX">ایسلند</option>
-                                                <option value="AL">آلبانیا</option>
-                                                <option value="DZ">الجزیره </option>
-                                                <option value="AS">آمریکا</option>
-                                                <option value="AD">آندروا </option>
-                                                <option value="AO">آنگولا</option>
-                                                <option value="AI">آنگالیا </option>
-                                                <option value="AQ">کاستاریکا </option>
-                                            </select>
+                                            <input name="post_code" id="post_code" type="text" class="form-control" placeholder="کد ملی ۱۰ رقمی" value="{{user.post_code}}">
                                         </div>
                                     </div><!--end col-->
                                     <div class="col-12">
                                         <div class="mb-3">
-                                            <label class="form-label">تلفن  <span class="text-danger">*</span></label>
-                                            <input type="text" name="phone" id="phone" class="form-control" placeholder="نام شهر :">
+                                            <label class="form-label">آدرس محل سکونت <span class="text-danger">*</span></label>
+                                            <input type="text" name="address" id="address" class="form-control" placeholder="آدرس کامل" value="{{user.address}}">
                                         </div>
                                     </div><!--end col-->
-                                    <div class="col-12">
+
+                                    <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">ایمیل شما <span class="text-danger">*</span></label>
-                                            <input name="email" id="email" type="email" class="form-control" placeholder="ایمیل شما :">
-                                        </div> 
+                                            <label class="form-label">موبایل <span class="text-danger">*</span></label>
+                                            <input type="text" name="mobile_phone" id="mobile_phone" class="form-control" placeholder="شماره موبایل به همراه صفر" value="{{user.mobile_phone}}">
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">تلفن ثابت  <span class="text-danger">*</span></label>
+                                            <input type="text" name="home_phone" id="home_phone" class="form-control" placeholder="شماره تلفن ثابت به همراه کد شهر" value="{{user.home_phone}}">
+                                        </div>
+                                    </div><!--end col-->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">استان  <span class="text-danger">*</span></label>
+                                            <input type="text" name="state" id="state" class="form-control" placeholder="به عنوان مثال : تهران" value="{{user.state}}">
+                                        </div><br><br>
+                                    </div><!--end col-->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">شهر  <span class="text-danger">*</span></label>
+                                            <input type="text" name="city" id="city" class="form-control" placeholder="به عنوان مثال : کرج" value="{{user.city}}">
+                                        </div><br><br>
                                     </div><!--end col-->
                                 </div><!--end row-->
                             </form><!--end form-->
-                        </div>
-
-                        <div class="form-check form-check-inline my-4">
-                            <div class="mb-0">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="creataccount">
-                                    <label class="form-check-label" for="creataccount">ایجاد حساب کاربری؟</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="rounded shadow-lg p-4">
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="addresscheck">
-                                    <label class="form-check-label" for="addresscheck">به آدرس دیگری ارسال شود؟</label>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="form-label">نظرات </label>
-                                <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="یادداشت هایی در مورد سفارش شما :"></textarea>
-                            </div> 
                         </div>
                     </div><!--end col-->
 
@@ -152,14 +111,14 @@
                         <div class="rounded shadow-lg p-4 sticky-bar">
                             <div class="d-flex mb-4 justify-content-between">
                                 <h5>4 آیتم </h5>
-                                <a href="shop-cart.html" class="text-muted h6">نمایش جزئیات</a>
+                                <a href="{% url 'cart' %}" class="text-muted h6">نمایش جزئیات</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-center table-padding mb-0">
                                     <tbody>
                                         <tr>
                                             <td class="h6 border-0">مجموع </td>
-                                            <td class="text-end fw-bold border-0">289000 تومان</td>
+                                            <td class="text-end fw-bold border-0">{{user_cart.total_price|currency}} تومان</td>
                                         </tr>
                                         <tr>
                                             <td class="h6">هزینه حمل و نقل</td>
@@ -167,7 +126,7 @@
                                         </tr>
                                         <tr class="bg-light">
                                             <td class="h5 fw-bold">مجموع </td>
-                                            <td class="text-end text-primary h4 fw-bold">289000 تومان</td>
+                                            <td class="text-end text-primary h4 fw-bold">{{user_cart.total_price|currency}} تومان</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -177,16 +136,7 @@
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="form-check mb-0">
                                                 <input class="form-check-input" checked type="radio" name="flexRadioDefault" id="banktransfer">
-                                                <label class="form-check-label" for="banktransfer">انتقال مبلغ</label>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="mt-3">
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <div class="form-check mb-0">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="chequepay">
-                                                <label class="form-check-label" for="chequepay">پرداخت را چک کنید</label>
+                                                <label class="form-check-label" for="banktransfer">درگاه پرداخت اینترنتی</label>
                                             </div>
                                         </div>
                                     </li>
@@ -200,19 +150,14 @@
                                         </div>
                                     </li>
 
-                                    <li class="mt-3">
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <div class="form-check mb-0">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="paypalpay">
-                                                <label class="form-check-label" for="paypalpay">پی پال <a href="https://www.paypal.com/uk/webapps/mpp/paypal-popup" target="_blank" class="ms-2 text-primary">پی پال چیست؟</a></label>
-                                            </div>
-                                        </div>
-                                    </li>
                                 </ul>
 
                                 <div class="mt-4 pt-2">
                                     <div class="d-grid">
-                                        <a href="shop-checkouts.html" class="btn btn-primary">سفارش دهید</a>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <button style="width:100%;" type="submit" class="btn btn-primary">پرداخت</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

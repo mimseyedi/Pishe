@@ -2,7 +2,7 @@
 <!DOCTYPE html>
     <html lang="en">
 
-    
+
 <head>
         <meta charset="utf-8" /><title>وبسایت پیشه</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +35,7 @@
             </div>
         </div> -->
         <!-- Loader -->
-        
+
         <div class="back-to-home rounded d-none d-sm-block">
             <a href="{% url 'home' %}" class="btn btn-icon btn-soft-primary"><i data-feather="home" class="icons"></i></a>
         </div>
@@ -45,16 +45,16 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-md-12 text-center">
-                        <img src="{% static 'images/pass_changed.jpg' %}" class="img-fluid" alt="">
-                        <div class="text-uppercase mt-4 display-3">رمز عبور شما با موفقیت تغییر پیدا کرد!</div>
+                        <img src="{% static 'images/accept.png' %}" class="img-fluid" alt="">
+                        <div class="text-uppercase mt-4 display-3">پرداخت موفق!</div>
                         <br>
-                        <div class="text-capitalize text-dark mb-4 error-page">لطفا دوباره وارد شوید</div>
+                        <div class="text-capitalize text-dark mb-4 error-page">سفارش شما با موفقیت ثبت شد</div>
                     </div><!--end col-->
                 </div><!--end row-->
 
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <a href="{% url 'login' %}" class="btn btn-primary mt-4 ms-2">وارد شوید</a>
+                      <button type="submit" class="btn btn-primary mt-4 ms-2">برو به داشبورد</button>
                     </div><!--end col-->
                 </div><!--end row-->
             </div><!--end container-->

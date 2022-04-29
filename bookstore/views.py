@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.db.models import Count
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from bookstore.models import BookComment, BookStoreCategory, Book, Cart, Product
+from bookstore.models import BookComment, BookStoreCategory, Book, Cart, Product, Order
 from django.contrib import messages
 from bookstore.forms import BookCommentForm
+from account.models import UserInfo
 from account.models import ProductFavorite
 from django.urls import reverse
 from random import randint
@@ -92,36 +93,64 @@ def bookstore_single_view(request, book_id, **kwargs):
 
 
 def checkout_view(request):
-    return render(request, "bookstore/bookstore_checkouts.html")
+    if request.user.is_authenticated:
+        user_info = UserInfo.objects.get(user=request.user)
+        user_cart = Cart.objects.get(user=request.user)
+
+        context = {"user": user_info, "user_cart": user_cart}
+        return render(request, "bookstore/bookstore_checkouts.html", context)
+    else:
+        return HttpResponseRedirect(reverse("login"))
 
 
 def cart_view(request):
-    user_cart = Cart.objects.get(user=request.user)
+    if request.user.is_authenticated:
+        user_cart = Cart.objects.get(user=request.user)
 
-    if request.method == "POST":
-        if "update_submit" in request.POST:
-            for product in user_cart.product.all():
-                if product.count != int(request.POST.get(f"product_count{product.pk}")):
-                    product.count = int(request.POST.get(f"product_count{product.pk}"))
-                    product.save()
+        if request.method == "POST":
+            if "update_submit" in request.POST:
+                for product in user_cart.product.all():
+                    if product.count != int(request.POST.get(f"product_count{product.pk}")):
+                        product.count = int(request.POST.get(f"product_count{product.pk}"))
+                        product.save()
 
-            total_p = 0
-            for product in user_cart.product.all():
-                total_p += product.book.price * product.count
-            user_cart.total_price = total_p
-            user_cart.save()
+                total_p = 0
+                for product in user_cart.product.all():
+                    total_p += product.book.price * product.count
+                user_cart.total_price = total_p
+                user_cart.save()
 
-        elif "del_submit" in request.POST:
-            product = Product.objects.get(pk=int(request.POST.get("product_pk")))
-            product.delete()
-            total_p = 0
-            for product in user_cart.product.all():
-                total_p += product.book.price * product.count
-            user_cart.total_price = total_p
-            user_cart.save()
-            return HttpResponseRedirect(reverse("cart"))
-
-
+            elif "del_submit" in request.POST:
+                product = Product.objects.get(pk=int(request.POST.get("product_pk")))
+                product.delete()
+                total_p = 0
+                for product in user_cart.product.all():
+                    total_p += product.book.price * product.count
+                user_cart.total_price = total_p
+                user_cart.save()
+                return HttpResponseRedirect(reverse("cart"))
+    else:
+        return HttpResponseRedirect(reverse("login"))
 
     context = {"user_cart": user_cart}
     return render(request, "bookstore/bookstore_cart.html", context)
+
+
+def suc_paid_view(request):
+    if request.user.is_authenticated:
+        order = Order()
+        order.user = request.user
+        order.cart = user_cart
+        order.order_id = randint(10000, 100000)
+        order.save()
+
+        product = Product.objects.all()
+        product.delete()
+
+        user_cart = Cart.objects.get(user=request.user)
+        user_cart.total_price = 0
+        user_cart.save()
+    else:
+        return HttpResponseRedirect(reverse("login"))
+
+    return render(request, "bookstore/bookstore_pay_accepted.html")
