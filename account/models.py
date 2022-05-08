@@ -5,6 +5,7 @@ from bookstore.models import Book
 
 class UserInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="شناسه کاربر")
+    image = models.ImageField(upload_to='accounts/', default='accounts/default.png', verbose_name="آواتار")
     firstname = models.CharField(max_length=100, verbose_name="نام", null=True)
     lastname = models.CharField(max_length=100, verbose_name="نام خانوادگی", null=True)
     meli_code = models.CharField(max_length=100, verbose_name="کد ملی")

@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-lg-2 col-md-3 text-md-start text-center">
-                                        <img src="{% static 'images/avatar.png' %}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
+                                        <img src="{{current_user.image.url}}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" style="width: 140px; height: 145px;" alt="">
                                     </div><!--end col-->
 
                                     <div class="col-lg-10 col-md-9">

@@ -14,6 +14,7 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+from django.core.files.storage import FileSystemStorage
 from random import randint
 
 
@@ -168,6 +169,22 @@ def account_setting_view(request):
                 user.delete()
                 return HttpResponseRedirect(reverse("account_del"))
 
+            elif 'del_avatar_submit' in request.POST:
+                current_user.image = 'accounts/default.png'
+                current_user.save()
+
+            elif 'upload_avatar_submit' in request.POST:
+                if request.FILES['upload_avatar']:
+                    current_user.image = f"accounts/{request.FILES['upload_avatar']}"
+                    current_user.save()
+                    uploaded_image = request.FILES['upload_avatar']
+                    fs = FileSystemStorage()
+                    filename = fs.save(f"accounts/{request.FILES['upload_avatar']}", uploaded_image)
+                    uploaded_file_url = fs.url(filename)
+                    return HttpResponseRedirect(reverse("dashboard"))
+                else:
+                    return HttpResponseRedirect(reverse("dashboard"))
+
         context = {"current_user": current_user, "msg": msg}
         return render(request, "account/account-setting.html", context)
     else:
@@ -196,10 +213,11 @@ def account_favorite_view(request):
 
 
 def account_orders_view(request):
+    current_user = get_object_or_404(UserInfo, user=request.user.pk)
     if request.user.is_authenticated:
         orders = Order.objects.filter(user=request.user)
 
-        context = {"orders": orders}
+        context = {"orders": orders, "current_user": current_user}
         return render(request, "account/account-orders.html", context)
     else:
         return HttpResponseRedirect(reverse("login"))

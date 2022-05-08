@@ -14,7 +14,7 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-lg-2 col-md-3 text-md-start text-center">
-                                        <img src="{% static 'images/avatar.png' %}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
+                                        <img src="{{current_user.image.url}}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" style="width: 140px; height: 145px;" alt="">
                                     </div><!--end col-->
 
                                     <div class="col-lg-10 col-md-9">
@@ -39,6 +39,64 @@
             </div><!--ed container-->
         </section><!--end section-->
         <!-- Hero End -->
+
+
+        <div class="modal fade" id="remove_avatar" tabindex="-1" aria-labelledby="composemail-title" aria-hidden="true" style="overflow-x: hidden; width:600px; margin-right:33%;">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content rounded shadow border-0">
+                    <div class="modal-header border-bottom">
+                        <h5 class="modal-title" id="composemail-title">حذف عکس</h5><br>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <div class="d-flex border-bottom p-3">
+                            <div class="form-check ps-0">
+                                <div class="mb-0">
+                                    <div class="form-check">
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_pk" value={{product.pk}}>
+                                            <h6 style="margin-right:15px;">آیا می خواهید عکس حساب کاربری خود را حذف کنید؟</h6><br>
+                                            <button name="del_avatar_submit" type="submit" class="btn btn-danger" style="margin-right:62px; background-color:#f44336;">بله می خواهم حذف کنم</button>
+                                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" aria-label="بستن">خیر نمی خواهم</button><br>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="change_avatar" tabindex="-1" aria-labelledby="composemail-title" aria-hidden="true" style="overflow-x: hidden; width:600px; margin-right:33%;">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content rounded shadow border-0">
+                    <div class="modal-header border-bottom">
+                        <h5 class="modal-title" id="composemail-title">تغییر تصویر</h5><br>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <div class="d-flex border-bottom p-3">
+                            <div class="form-check ps-0">
+                                <div class="mb-0">
+                                    <div class="form-check">
+                                        <form method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_pk" value={{product.pk}}>
+                                            <h6 style="margin-right:15px;">لطفا عکس مورد نظر خود را آپلود کنید</h6><br>
+                                            <input id="upload_avatar" name="upload_avatar" type="file" class="btn btn-primary" onclick="EnableDisableImage(this)" style="margin-right: 60px;"> </input><br><br>
+                                            <button id="upload_avatar_submit" type="submit" name="upload_avatar_submit" disabled="disabled" class="btn btn-success" style="margin-right: 160px;">ثبت شود</button><br>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Profile Start -->
         <!-- Profile Start -->
@@ -109,6 +167,15 @@
                         <div class="card border-0 rounded shadow">
                             <div class="card-body">
                                 <h5 class="text-md-start text-center">اطلاعات شخصی :</h5>
+
+                                <div class="mt-3 text-md-start text-center d-sm-flex">
+                                    <img src="{{current_user.image.url}}" class="avatar float-md-left avatar-medium rounded-circle shadow me-md-4" alt="">
+
+                                    <div class="mt-md-4 mt-3 mt-sm-0">
+                                        <a href="" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#change_avatar">تغییر تصویر</a>
+                                        <a href="" class="btn btn-outline-primary mt-2 ms-2" data-bs-toggle="modal" data-bs-target="#remove_avatar">حذف </a>
+                                    </div>
+                                </div>
 
                                 <form method="post">
                                     {% csrf_token %}
@@ -290,5 +357,16 @@
             delete_submit.disabled = false;
         }
     };
+
+    function EnableDisableImage(upload_avatar) {
+    var upload_avatar_submit = document.getElementById("upload_avatar_submit");
+    if (upload_avatar.value.trim() != "") {
+            //Enable the TextBox when TextBox has value.
+            upload_avatar_submit.disabled = true;
+        } else {
+            //Disable the TextBox when TextBox is empty.
+            upload_avatar_submit.disabled = false;
+        }
+    }
 </script>
 {% endblock %}
