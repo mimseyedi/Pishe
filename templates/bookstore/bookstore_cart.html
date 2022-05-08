@@ -57,8 +57,8 @@
                                             {% csrf_token %}
                                             <input type="hidden" name="product_pk" value={{product.pk}}>
                                             <h6 style="margin-right:15px;">آیا می خواهید کتاب {{product.book.title}} را از سبد خرید حذف کنید؟</h6><br>
-                                            <button name="del_submit" type="submit" class="btn btn-primary" style="margin-right:62px; background-color:#f44336;">بله میخواهم حذف کنم</button>
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="بستن">خیر نمی خواهم</button><br>
+                                            <button name="del_submit" type="submit" class="btn btn-danger" style="margin-right:62px; background-color:#f44336;">بله میخواهم حذف کنم</button>
+                                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" aria-label="بستن">خیر نمی خواهم</button><br>
                                         </form>
                                     </div>
                                 </div>

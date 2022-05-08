@@ -1,0 +1,27 @@
+{% load static %}
+<div class="modal fade" id="exit-question" tabindex="-1" aria-labelledby="composemail-title" aria-hidden="true" style="overflow-x: hidden; width:600px; margin-right:33%;">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content rounded shadow border-0">
+                    <div class="modal-header border-bottom">
+                        <h5 class="modal-title" id="composemail-title">خارج شدن از حساب کاربری</h5><br>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <div class="d-flex border-bottom p-3">
+                            <div class="form-check ps-0">
+                                <div class="mb-0">
+                                    <div class="form-check">
+                                        <form method="post">
+                                            <input type="hidden" name="product_pk" value={{product.pk}}>
+                                            <h6 style="margin-right:15px;">آیا می خواهید از حساب کاربری خود خارج شوید؟</h6><br>
+                                            <a name="del_submit" href="{% url 'logout' %}" class="btn btn-danger" style="margin-right:62px; background-color:#f44336;">بله می خواهم خارج شوم</a>
+                                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" aria-label="بستن">خیر نمی خواهم</button><br>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

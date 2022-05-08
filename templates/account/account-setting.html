@@ -4,6 +4,7 @@
 {% load blog_tags %}
 {% block content %}
 
+        {% include 'account/exit-question.html' %}
         <!-- Hero Start -->
         <section class="bg-profile d-table w-100 bg-primary" style="background: url({% static 'images/dashboard-bg.png' %}) center center;">
             <div class="container">
@@ -25,7 +26,7 @@
                                             <div class="col-md-5 text-md-end text-center">
                                                 <ul class="list-unstyled social-icon social mb-0 mt-4">
                                                     <li class="list-inline-item"><a href="{% url 'account_sett' %}" class="rounded" data-bs-toggle="tooltip" data-bs-placement="bottom" title="تنظیمات"><i class="uil uil-cog align-middle"></i></a></li>
-                                                    <li class="list-inline-item"><a href="{% url 'logout' %}" class="rounded" data-bs-toggle="tooltip" data-bs-placement="bottom" title="خروج"><i class="uil uil-sign-out-alt align-middle"></i></a></li>
+                                                    <li class="list-inline-item"><a href="" data-bs-toggle="modal" data-bs-target="#exit-question" class="rounded" data-bs-placement="bottom" title="خروج"><i class="uil uil-sign-out-alt align-middle"></i></a></li>
                                                 </ul><!--end icon-->
                                             </div><!--end col-->
                                         </div><!--end row-->
@@ -81,7 +82,7 @@
                                     </li>
 
                                     <li class="navbar-item account-menu px-0 mt-2">
-                                        <a href="{% url 'logout' %}" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#exit-question" class="navbar-link d-flex rounded shadow align-items-center py-2 px-4">
                                             <span class="h4 mb-0"><i class="uil uil-sign-out-alt"></i></span>
                                             <h6 class="mb-0 ms-2">خروج </h6>
                                         </a>
